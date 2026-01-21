@@ -413,18 +413,5 @@ Oda ölçüsü/fotoğrafı gönderebilirim.`;
   } else {
     initWhatsAppChat();
   }
-document.addEventListener("DOMContentLoaded", () => {
-  const phone = document.querySelector(".phone, .phone-mockup, .wa-phone");
-
-  if (!phone) return;
-
-  // Sayfa açılır açılmaz animasyonu başlat
-  phone.classList.add("animate");
-
-  // Tekrar geri sarmasın
-  phone.style.animationFillMode = "forwards";
-});
-
   
-
   
