@@ -11,31 +11,9 @@
   <link rel="stylesheet" href="./styles.css" />
 </head>
 <body>
-  <!-- Top bar -->
-  <div class="topbar">
-    <div class="container topbar__inner">
-      <div class="topbar__left">
-        <span class="dot"></span>
-        <span>Ücretsiz danışmanlık • Hızlı teklif</span>
-      </div>
-      <div class="topbar__right">
-        <a class="toplink" href="#iletisim">İletişim</a>
-        <a class="toplink" href="#magaza">Mağaza</a>
-      </div>
-    </div>
-  </div>
-
   <!-- Header -->
   <header class="header">
     <div class="container header__inner">
-      <a class="brand" href="#">
-        <div class="brand__mark">Ç</div>
-        <div class="brand__text">
-          <div class="brand__name">Çabuk Elektrik</div>
-          <div class="brand__tag">Aydınlatma & Avize</div>
-        </div>
-      </a>
-
       <nav class="nav" id="nav">
         <a href="#kategoriler">Kategoriler</a>
         <a href="#urunler">Ürünler</a>
@@ -81,30 +59,31 @@
         </div>
       </div>
 
-      <div class="hero__phone-mock reveal">
+      <div class="hero__phone-mock reveal" id="whatsappChat">
         <div class="phone-mock">
           <div class="phone-mock__frame">
             <div class="phone-mock__speaker"></div>
             <div class="phone-mock__screen">
+              <!-- WhatsApp Header -->
               <div class="phone-mock__header">
                 <div class="phone-mock__contact">
                   <div class="phone-mock__avatar">Ç</div>
                   <div class="phone-mock__info">
                     <div class="phone-mock__name">Çabuk Elektrik</div>
-                    <div class="phone-mock__status">çevrimiçi</div>
+                    <div class="phone-mock__status">
+                      <span class="phone-mock__status-dot"></span>
+                      çevrimiçi
+                    </div>
                   </div>
                 </div>
               </div>
-              <div class="phone-mock__messages">
-                <div class="phone-mock__msg phone-mock__msg--customer">
-                  <div class="phone-mock__bubble">Salon 25 m², tavan 2.7 m</div>
-                </div>
-                <div class="phone-mock__msg phone-mock__msg--business">
-                  <div class="phone-mock__bubble">Bu ölçü için Modern Avize öneririz.</div>
-                </div>
-                <div class="phone-mock__msg phone-mock__msg--business">
-                  <div class="phone-mock__bubble">Fiyat için WhatsApp'tan yazabilirsiniz.</div>
-                </div>
+              <!-- Messages Container -->
+              <div class="phone-mock__messages" id="whatsappMessages">
+                <!-- Messages will be added dynamically via JavaScript -->
+              </div>
+              <!-- WhatsApp CTA Button -->
+              <div class="phone-mock__cta" id="whatsappCta" style="display: none;">
+                <a class="phone-mock__cta-btn" id="whatsappCtaBtn" href="#">WhatsApp'tan Yaz</a>
               </div>
             </div>
           </div>
@@ -146,7 +125,7 @@
         <button class="chip" data-filter="Salon">Salon</button>
         <button class="chip" data-filter="Ampul">Ampul</button>
         <button class="chip" data-filter="Mutfak">Mutfak</button>
-        <button class="chip" data-filter="Ada">Ada</button>
+        <button class="chip" data-filter="Ada">Çocuk Odası</button>
         <button class="chip" data-filter="Klasik">Klasik</button>
         <button class="chip" data-filter="Modern">Modern</button>
         <button class="chip" data-filter="Aplik">Aplik</button>
@@ -240,7 +219,7 @@
           </div>
           <div class="row">
             <div class="row__k">Adres</div>
-            <div class="row__v">Mağaza adresimiz için WhatsApp üzerinden bilgi alabilirsiniz</div>
+            <div class="row__v">Kemaliye Mahallesi Merve Sokak No:16</div>
           </div>
           <div class="row">
             <div class="row__k">Çalışma</div>
@@ -253,7 +232,6 @@
           <a class="btn btn--ghost" id="copyPhone" href="#">Telefonu Kopyala</a>
         </div>
 
-        <p class="tiny muted">Çabuk Elektrik - Güvenilir Elektrik ve Aydınlatma Çözümleri</p>
       </div>
 
       <div class="map" id="magaza">
@@ -261,7 +239,7 @@
           title="Harita"
           loading="lazy"
           referrerpolicy="no-referrer-when-downgrade"
-          src="https://www.google.com/maps?q=Trabzon+Vakfıkebir&output=embed">
+          src="https://www.google.com/maps?q=Trabzon,+Vakfıkebir,+Kemaliye+Mahallesi,+Merve+Sokak+No:16&z=16&output=embed">
         </iframe>
       </div>
     </div>

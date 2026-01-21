@@ -241,4 +241,177 @@ Oda ölçüsü/fotoğrafı gönderebilirim.`;
     initScrollReveal();
   }
   
+  // --- WhatsApp Chat Animation ---
+  function initWhatsAppChat(){
+    const chatContainer = document.getElementById('whatsappChat');
+    const messagesContainer = document.getElementById('whatsappMessages');
+    const ctaContainer = document.getElementById('whatsappCta');
+    const ctaButton = document.getElementById('whatsappCtaBtn');
+    
+    if (!chatContainer || !messagesContainer) return;
+    
+    // Check if animation has already been played
+    if (chatContainer.dataset.animated === 'true') return;
+    
+    // Message data
+    const messages = [
+      { text: "Merhaba, salon için avize bakıyorum", sender: "customer", delay: 800 },
+      { text: "Merhaba 😊 Salonunuzun ölçüsünü alabilir miyim?", sender: "business", delay: 1500 },
+      { text: "20 m²", sender: "customer", delay: 1200 },
+      { text: "Bu ölçü için modern salon avizeleri önerebilirim ✨", sender: "business", delay: 1500 },
+      { text: "WhatsApp'tan devam edelim mi?", sender: "business", delay: 1200 }
+    ];
+    
+    // Check for reduced motion
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    
+    // IntersectionObserver to start animation when visible
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting && chatContainer.dataset.animated !== 'true') {
+          chatContainer.dataset.animated = 'true';
+          startMessageAnimation(messages, messagesContainer, ctaContainer, ctaButton, prefersReducedMotion);
+          observer.unobserve(chatContainer);
+        }
+      });
+    }, {
+      threshold: 0.3,
+      rootMargin: '0px'
+    });
+    
+    observer.observe(chatContainer);
+  }
+  
+  // Start message animation sequence
+  function startMessageAnimation(messages, container, ctaContainer, ctaButton, reducedMotion){
+    let currentIndex = 0;
+    let totalDelay = 0;
+    
+    function showNextMessage(){
+      if (currentIndex >= messages.length) {
+        // All messages shown, show CTA button
+        setTimeout(() => {
+          if (ctaContainer) {
+            ctaContainer.style.display = 'block';
+            ctaContainer.style.opacity = '0';
+            ctaContainer.style.transform = 'translateY(10px)';
+            setTimeout(() => {
+              ctaContainer.style.transition = 'opacity 0.4s ease-out, transform 0.4s ease-out';
+              ctaContainer.style.opacity = '1';
+              ctaContainer.style.transform = 'translateY(0)';
+            }, 50);
+          }
+        }, 500);
+        return;
+      }
+      
+      const message = messages[currentIndex];
+      
+      // Show typing indicator before business messages
+      if (message.sender === 'business' && !reducedMotion) {
+        showTypingIndicator(container, () => {
+          setTimeout(() => {
+            hideTypingIndicator(container);
+            addMessage(container, message.text, message.sender, reducedMotion);
+            currentIndex++;
+            totalDelay += message.delay;
+            setTimeout(showNextMessage, message.delay);
+          }, 800);
+        });
+      } else {
+        // Customer messages appear directly
+        addMessage(container, message.text, message.sender, reducedMotion);
+        currentIndex++;
+        totalDelay += message.delay;
+        setTimeout(showNextMessage, message.delay);
+      }
+    }
+    
+    // Start animation
+    if (reducedMotion) {
+      // Show all messages immediately if reduced motion
+      messages.forEach((msg, index) => {
+        setTimeout(() => {
+          addMessage(container, msg.text, msg.sender, true);
+          if (index === messages.length - 1 && ctaContainer) {
+            ctaContainer.style.display = 'block';
+          }
+        }, index * 200);
+      });
+    } else {
+      showNextMessage();
+    }
+  }
+  
+  // Add message to container
+  function addMessage(container, text, sender, reducedMotion){
+    const msgDiv = document.createElement('div');
+    msgDiv.className = `phone-mock__msg phone-mock__msg--${sender}`;
+    
+    const bubbleDiv = document.createElement('div');
+    bubbleDiv.className = 'phone-mock__bubble';
+    bubbleDiv.textContent = text;
+    
+    msgDiv.appendChild(bubbleDiv);
+    container.appendChild(msgDiv);
+    
+    // Scroll to bottom smoothly
+    setTimeout(() => {
+      container.scrollTop = container.scrollHeight;
+    }, 100);
+  }
+  
+  // Show typing indicator
+  function showTypingIndicator(container, callback){
+    const typingDiv = document.createElement('div');
+    typingDiv.className = 'phone-mock__typing';
+    typingDiv.id = 'typingIndicator';
+    
+    for (let i = 0; i < 3; i++) {
+      const dot = document.createElement('div');
+      dot.className = 'phone-mock__typing-dot';
+      typingDiv.appendChild(dot);
+    }
+    
+    container.appendChild(typingDiv);
+    
+    setTimeout(() => {
+      typingDiv.classList.add('is-visible');
+      if (callback) callback();
+    }, 50);
+    
+    // Scroll to bottom
+    setTimeout(() => {
+      container.scrollTop = container.scrollHeight;
+    }, 100);
+  }
+  
+  // Hide typing indicator
+  function hideTypingIndicator(container){
+    const typingIndicator = document.getElementById('typingIndicator');
+    if (typingIndicator) {
+      typingIndicator.style.transition = 'opacity 0.2s ease-out';
+      typingIndicator.style.opacity = '0';
+      setTimeout(() => {
+        if (typingIndicator.parentNode) {
+          typingIndicator.parentNode.removeChild(typingIndicator);
+        }
+      }, 200);
+    }
+  }
+  
+  // Wire WhatsApp CTA button
+  const whatsappCtaBtn = document.getElementById('whatsappCtaBtn');
+  if (whatsappCtaBtn) {
+    const whatsappLink = makeWhatsAppLink();
+    whatsappCtaBtn.setAttribute('href', whatsappLink);
+  }
+  
+  // Initialize WhatsApp chat on page load
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initWhatsAppChat);
+  } else {
+    initWhatsAppChat();
+  }
+  
   

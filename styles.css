@@ -12,6 +12,11 @@
   
   *{ box-sizing: border-box; }
   html, body{ margin:0; padding:0; font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial; background: radial-gradient(1200px 700px at 70% 10%, rgba(201,164,97,.18), transparent 55%), #07080b; color: var(--white); }
+  body::before,
+  body::after{
+    content: none !important;
+    display: none !important;
+  }
   a{ color: inherit; text-decoration:none; }
   img{ max-width:100%; display:block; }
   
@@ -26,50 +31,38 @@
   
   .container{ width:min(1120px, 92vw); margin:0 auto; }
   
-  .topbar{
-    background: rgba(255,255,255,.04);
-    border-bottom: 1px solid var(--line);
-    font-size: 13px;
-  }
-  .topbar__inner{ display:flex; align-items:center; justify-content:space-between; padding:10px 0; gap:14px; }
-  .topbar__left{ display:flex; align-items:center; gap:10px; color: var(--muted); }
-  .dot{ width:8px; height:8px; border-radius:50%; background: var(--gold); box-shadow: 0 0 0 4px rgba(201,164,97,.15); }
-  .topbar__right{ display:flex; gap:14px; }
-  .toplink{ color: var(--muted2); }
-  .toplink:hover{ color: var(--white); }
-  
   .header{
     position: sticky; top: 0; z-index: 20;
     backdrop-filter: blur(10px);
     background: rgba(7,8,11,.6);
     border-bottom: 1px solid var(--line);
+    min-height: auto;
   }
-  .header__inner{ display:flex; align-items:center; justify-content:space-between; padding:14px 0; gap:14px; }
+  .header::before,
+  .header::after{
+    content: none !important;
+    display: none !important;
+  }
+  .header__inner{ display:flex; align-items:center; justify-content:flex-end; padding:10px 0; gap:14px; }
+  .header__inner::before,
+  .header__inner::after{
+    content: none !important;
+    display: none !important;
+  }
   
-  .brand{ display:flex; align-items:center; gap:12px; }
-  .brand__mark{
-    width:48px; height:48px; border-radius: 16px;
-    display:grid; place-items:center;
-    background: linear-gradient(135deg, rgba(201,164,97,.25), rgba(201,164,97,.12));
-    border: 1.5px solid rgba(201,164,97,.45);
-    color: var(--gold);
-    font-family: Cinzel, serif;
-    font-weight: 800;
-    font-size: 24px;
-    box-shadow: 0 4px 12px rgba(201,164,97,.15), inset 0 1px 0 rgba(255,255,255,.1);
+  .brand{ display:none !important; visibility: hidden !important; opacity: 0 !important; height: 0 !important; width: 0 !important; margin: 0 !important; padding: 0 !important; }
+  .brand__mark{ display:none !important; }
+  .brand__name{ display:none !important; }
+  .brand__text{ display:none !important; }
+  .brand::before,
+  .brand::after,
+  .brand__name::before,
+  .brand__name::after,
+  .brand__text::before,
+  .brand__text::after{
+    content: none !important;
+    display: none !important;
   }
-  .brand__name{ 
-    font-family: Cinzel, serif; 
-    font-weight: 800; 
-    letter-spacing:.4px; 
-    font-size: 20px;
-    background: linear-gradient(135deg, var(--gold), rgba(201,164,97,.85));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    text-shadow: 0 0 20px rgba(201,164,97,.2);
-  }
-  .brand__tag{ font-size: 12px; color: var(--muted2); margin-top:2px; }
   
   .nav{ display:flex; align-items:center; gap:18px; }
   .nav a{ color: var(--muted2); font-size: 14px; }
@@ -92,7 +85,7 @@
   }
   .burger span{ display:block; width:18px; height:2px; background: rgba(255,255,255,.82); margin:4px auto; border-radius: 2px; }
   
-  .hero{ padding: 56px 0 22px; }
+  .hero{ padding: 10px 0 22px; }
   .hero__grid{ 
     display:grid; 
     grid-template-columns: 1fr 320px; 
@@ -305,129 +298,214 @@
   .phone-mock__screen{
     width: 100%;
     height: 100%;
-    background: linear-gradient(180deg, #0e1621 0%, #0a0b0f 100%);
+    /* WhatsApp-like dark gradient background */
+    background: 
+      radial-gradient(circle at 20% 50%, rgba(37,211,102,.08) 0%, transparent 50%),
+      radial-gradient(circle at 80% 80%, rgba(37,211,102,.05) 0%, transparent 50%),
+      linear-gradient(135deg, #0b1419 0%, #1a1a1a 50%, #0b1419 100%);
+    background-size: 100% 100%;
     border-radius: 22px;
     overflow: hidden;
     position: relative;
-    backdrop-filter: blur(10px);
+    display: flex;
+    flex-direction: column;
   }
+  /* WhatsApp Header */
   .phone-mock__header{
-    padding: 12px 14px;
-    background: rgba(18,19,26,.8);
-    border-bottom: 1px solid rgba(255,255,255,.08);
-    backdrop-filter: blur(8px);
+    padding: 10px 16px;
+    background: rgba(32,44,51,.95);
+    border-bottom: 1px solid rgba(255,255,255,.06);
+    backdrop-filter: blur(10px);
+    flex-shrink: 0;
   }
   .phone-mock__contact{
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 12px;
   }
   .phone-mock__avatar{
-    width: 36px;
-    height: 36px;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
-    background: linear-gradient(135deg, rgba(201,164,97,.4), rgba(201,164,97,.2));
-    border: 1.5px solid rgba(201,164,97,.3);
+    background: linear-gradient(135deg, rgba(201,164,97,.5), rgba(201,164,97,.3));
+    border: 2px solid rgba(201,164,97,.4);
     display: flex;
     align-items: center;
     justify-content: center;
     color: var(--gold);
     font-weight: 700;
-    font-size: 16px;
+    font-size: 18px;
     font-family: Cinzel, serif;
+    flex-shrink: 0;
   }
   .phone-mock__info{
     flex: 1;
+    min-width: 0;
   }
   .phone-mock__name{
-    font-size: 14px;
+    font-size: 16px;
     font-weight: 600;
     color: var(--white);
     margin-bottom: 2px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
   .phone-mock__status{
-    font-size: 11px;
-    color: rgba(201,164,97,.8);
+    font-size: 13px;
+    color: rgba(255,255,255,.6);
+    display: flex;
+    align-items: center;
+    gap: 6px;
   }
+  .phone-mock__status-dot{
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #25d366;
+    box-shadow: 0 0 6px rgba(37,211,102,.6);
+    flex-shrink: 0;
+  }
+  /* Messages Container */
   .phone-mock__messages{
-    padding: 16px 12px;
+    flex: 1;
+    padding: 16px 12px 12px;
     display: flex;
     flex-direction: column;
-    gap: 10px;
-    min-height: 200px;
+    gap: 8px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    min-height: 0;
   }
+  /* Message Bubbles */
   .phone-mock__msg{
     display: flex;
     opacity: 0;
-    transform: translateY(8px);
+    transform: translateY(12px);
+    animation: messageSlideIn 0.4s ease-out forwards;
   }
   .phone-mock__msg--customer{
     justify-content: flex-end;
+    align-self: flex-end;
   }
   .phone-mock__msg--customer .phone-mock__bubble{
-    background: rgba(201,164,97,.25);
+    /* WhatsApp customer message style (right side) */
+    background: linear-gradient(135deg, rgba(201,164,97,.35), rgba(201,164,97,.25));
     border: 1px solid rgba(201,164,97,.3);
     color: var(--white);
     max-width: 75%;
+    border-bottom-right-radius: 4px;
   }
   .phone-mock__msg--business{
     justify-content: flex-start;
+    align-self: flex-start;
   }
   .phone-mock__msg--business .phone-mock__bubble{
-    background: rgba(255,255,255,.08);
-    border: 1px solid rgba(255,255,255,.12);
-    color: var(--muted);
+    /* WhatsApp business message style (left side) */
+    background: rgba(32,44,51,.95);
+    border: 1px solid rgba(255,255,255,.08);
+    color: rgba(255,255,255,.9);
     max-width: 80%;
+    border-bottom-left-radius: 4px;
   }
   .phone-mock__bubble{
-    padding: 10px 14px;
-    border-radius: 12px;
-    font-size: 12px;
+    padding: 8px 12px;
+    border-radius: 8px;
+    font-size: 14px;
     line-height: 1.4;
     word-wrap: break-word;
-    box-shadow: 0 2px 4px rgba(0,0,0,.2);
+    box-shadow: 0 1px 2px rgba(0,0,0,.2);
+    position: relative;
   }
-  @keyframes messageLoop{
-    0%{
+  /* Message Animation */
+  @keyframes messageSlideIn{
+    from{
       opacity: 0;
-      transform: translateY(10px);
+      transform: translateY(12px);
     }
-    10%{
+    to{
       opacity: 1;
       transform: translateY(0);
+    }
+  }
+  /* Typing Indicator */
+  .phone-mock__typing{
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 8px 12px;
+    background: rgba(32,44,51,.95);
+    border-radius: 8px;
+    border-bottom-left-radius: 4px;
+    max-width: 50px;
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  .phone-mock__typing.is-visible{
+    animation: messageSlideIn 0.3s ease-out forwards;
+  }
+  .phone-mock__typing-dot{
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: rgba(255,255,255,.5);
+    animation: typingDot 1.4s ease-in-out infinite;
+  }
+  .phone-mock__typing-dot:nth-child(2){
+    animation-delay: 0.2s;
+  }
+  .phone-mock__typing-dot:nth-child(3){
+    animation-delay: 0.4s;
+  }
+  @keyframes typingDot{
+    0%, 60%, 100%{
+      transform: translateY(0);
+      opacity: 0.5;
     }
     30%{
+      transform: translateY(-8px);
       opacity: 1;
-      transform: translateY(0);
-    }
-    40%{
-      opacity: 0;
-      transform: translateY(10px);
-    }
-    100%{
-      opacity: 0;
-      transform: translateY(10px);
     }
   }
-  @media (prefers-reduced-motion: no-preference){
-    .phone-mock__msg{
-      animation: messageLoop 4.5s ease-in-out infinite;
-    }
-    .phone-mock__msg:nth-child(1){
-      animation-delay: 0.3s;
-    }
-    .phone-mock__msg:nth-child(2){
-      animation-delay: 1.5s;
-    }
-    .phone-mock__msg:nth-child(3){
-      animation-delay: 2.7s;
-    }
+  /* CTA Button */
+  .phone-mock__cta{
+    padding: 12px 16px;
+    background: rgba(32,44,51,.95);
+    border-top: 1px solid rgba(255,255,255,.06);
+    flex-shrink: 0;
   }
+  .phone-mock__cta-btn{
+    display: block;
+    width: 100%;
+    padding: 12px;
+    background: linear-gradient(135deg, rgba(201,164,97,.4), rgba(201,164,97,.3));
+    border: 1px solid rgba(201,164,97,.4);
+    border-radius: 8px;
+    color: var(--white);
+    font-weight: 600;
+    font-size: 14px;
+    text-align: center;
+    transition: background 0.25s ease-out, transform 0.2s ease-out, box-shadow 0.25s ease-out;
+    box-shadow: 0 2px 8px rgba(201,164,97,.2);
+  }
+  .phone-mock__cta-btn:hover{
+    background: linear-gradient(135deg, rgba(201,164,97,.5), rgba(201,164,97,.4));
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(201,164,97,.3);
+  }
+  .phone-mock__cta-btn:active{
+    transform: translateY(0);
+  }
+  /* Reduced Motion */
   @media (prefers-reduced-motion: reduce){
-    .phone-mock__msg{
+    .phone-mock__msg,
+    .phone-mock__typing{
       animation: none;
       opacity: 1;
       transform: translateY(0);
+    }
+    .phone-mock__typing-dot{
+      animation: none;
     }
   }
   
@@ -575,7 +653,13 @@
     background: rgba(255,255,255,.03);
     box-shadow: var(--shadow);
   }
-  .map iframe{ width:100%; height: 100%; min-height: 340px; border:0; }
+  .map iframe{ 
+    width:100%; 
+    height: 100%; 
+    min-height: 340px; 
+    border:0; 
+    max-width: 100%;
+  }
   
   .fab{
     position: fixed;
@@ -670,9 +754,9 @@
     .about, .contact{ grid-template-columns: 1fr; }
     .frame{ min-height: 300px; }
     .frame img{ min-height: 300px; }
+    .grid{ grid-template-columns: repeat(2, 1fr); }
     .hero__overlay{ padding: 24px 20px; }
     .hero__overlay-title{ font-size: clamp(24px, 5vw, 36px); }
-    .grid{ grid-template-columns: repeat(2, 1fr); }
     .phone-mock{
       width: 240px;
     }
