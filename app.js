@@ -51,6 +51,69 @@ const SETTINGS = {
       size: "Standart",
       priceText: "Fiyat için WhatsApp",
       img: "./images/salon003.jpg"
+    },
+    {
+      id: "SALON-004",
+      title: "Modern Avize",
+      category: ["Salon"],
+      bulbs: "6xE14",
+      size: "Orta Boy",
+      priceText: "Fiyat için WhatsApp",
+      img: "./images/salon004.jpg"
+    },
+    {
+      id: "ANAHTAR-001",
+      title: "Elektrik Anahtarı",
+      category: ["Anahtar"],
+      bulbs: "-",
+      size: "Standart",
+      priceText: "Fiyat için WhatsApp",
+      img: "./images/anahtar01.jpg"
+    },
+    {
+      id: "ANAHTAR-002",
+      title: "Elektrik Anahtarı",
+      category: ["Anahtar"],
+      bulbs: "-",
+      size: "Standart",
+      priceText: "Fiyat için WhatsApp",
+      img: "./images/anahtar02.jpg"
+    },
+    {
+      id: "ANAHTAR-003",
+      title: "Elektrik Anahtarı",
+      category: ["Anahtar"],
+      bulbs: "-",
+      size: "Standart",
+      priceText: "Fiyat için WhatsApp",
+      img: "./images/anahtar03.jpg"
+    },
+    {
+      id: "ANAHTAR-004",
+      title: "Elektrik Anahtarı",
+      category: ["Anahtar"],
+      bulbs: "-",
+      size: "Standart",
+      priceText: "Fiyat için WhatsApp",
+      img: "./images/anahtar04.jpg"
+    },
+    {
+      id: "ANAHTAR-005",
+      title: "Elektrik Anahtarı",
+      category: ["Anahtar"],
+      bulbs: "-",
+      size: "Standart",
+      priceText: "Fiyat için WhatsApp",
+      img: "./images/anahtar05.jpg"
+    },
+    {
+      id: "ANAHTAR-006",
+      title: "Elektrik Anahtarı",
+      category: ["Anahtar"],
+      bulbs: "-",
+      size: "Standart",
+      priceText: "Fiyat için WhatsApp",
+      img: "./images/anahtar06.jpg"
     }
   ];
   
@@ -148,14 +211,23 @@ Oda ölçüsü/fotoğrafı gönderebilirim.`;
     // Detay butonları
     grid.querySelectorAll("button[data-detail]").forEach(btn => {
       btn.addEventListener("click", () => {
+        const productId = btn.getAttribute("data-detail") || "";
         const title = btn.getAttribute("data-title") || "";
         const size = btn.getAttribute("data-size") || "";
         const bulbs = btn.getAttribute("data-bulbs") || "";
         const category = btn.getAttribute("data-category") || "";
         const price = btn.getAttribute("data-price") || "";
         
-        const detailText = `${title}\n\nÖlçü: ${size}\nAmpul: ${bulbs}\nKategori: ${category}\n\n${price}`;
-        alert(detailText);
+        // Find product in PRODUCTS array for WhatsApp link
+        const product = PRODUCTS.find(p => p.id === productId);
+        openModal({
+          title,
+          size,
+          bulbs,
+          category,
+          price,
+          product
+        });
       });
     });
     
@@ -413,5 +485,84 @@ Oda ölçüsü/fotoğrafı gönderebilirim.`;
   } else {
     initWhatsAppChat();
   }
+  
+  // --- Product Detail Modal ---
+  const modal = document.getElementById('productModal');
+  const modalOverlay = document.getElementById('modalOverlay');
+  const modalClose = document.getElementById('modalClose');
+  const modalCloseBtn = document.getElementById('modalCloseBtn');
+  const modalTitle = document.getElementById('modalTitle');
+  const modalSize = document.getElementById('modalSize');
+  const modalBulbs = document.getElementById('modalBulbs');
+  const modalCategory = document.getElementById('modalCategory');
+  const modalPrice = document.getElementById('modalPrice');
+  const modalWhatsApp = document.getElementById('modalWhatsApp');
+  
+  function openModal(productData) {
+    if (!modal) return;
+    
+    // Fill modal with product data
+    modalTitle.textContent = productData.title || 'Ürün Detayları';
+    modalSize.textContent = productData.size || '-';
+    modalBulbs.textContent = productData.bulbs || '-';
+    modalCategory.textContent = productData.category || '-';
+    modalPrice.textContent = productData.price || 'Fiyat için WhatsApp';
+    
+    // Set WhatsApp link
+    if (productData.product) {
+      const categoryText = productData.product.category.join(", ");
+      const productMessage = `Merhaba, Çabuk Elektrik'ten ${escapeHtml(productData.product.title)} (${escapeHtml(productData.product.id)}) için fiyat ve stok bilgisi alabilir miyim?
+Ölçü: ${escapeHtml(productData.product.size)} • Ampul: ${escapeHtml(productData.product.bulbs)}
+Kullanım alanı: ${escapeHtml(categoryText)}
+Oda ölçüsü/fotoğrafı gönderebilirim.`;
+      const waText = encodeURIComponent(productMessage);
+      modalWhatsApp.href = `https://wa.me/${SETTINGS.whatsappNumber}?text=${waText}`;
+    } else {
+      modalWhatsApp.href = makeWhatsAppLink();
+    }
+    
+    // Show modal
+    modal.classList.add('is-open');
+    modal.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+    
+    // Trigger animation
+    setTimeout(() => {
+      modal.classList.add('is-visible');
+    }, 10);
+  }
+  
+  function closeModal() {
+    if (!modal) return;
+    
+    // Trigger close animation
+    modal.classList.remove('is-visible');
+    
+    setTimeout(() => {
+      modal.classList.remove('is-open');
+      modal.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    }, 300);
+  }
+  
+  // Close modal events
+  if (modalOverlay) {
+    modalOverlay.addEventListener('click', closeModal);
+  }
+  
+  if (modalClose) {
+    modalClose.addEventListener('click', closeModal);
+  }
+  
+  if (modalCloseBtn) {
+    modalCloseBtn.addEventListener('click', closeModal);
+  }
+  
+  // Close on ESC key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modal && modal.classList.contains('is-open')) {
+      closeModal();
+    }
+  });
   
   

@@ -28,14 +28,20 @@
     </div>
   </header>
 
+  <!-- Brand Title -->
+  <section class="brand-title">
+    <div class="container">
+      <h1 class="brand-title__text">ÇABUK ELEKTRİK</h1>
+    </div>
+  </section>
+
   <!-- Hero -->
   <section class="hero">
     <div class="container hero__grid">
       <div class="hero__content">
-        <p class="pill reveal">✨ Çabuk Elektrik ile mekânınıza uygun ışığı seçin</p>
         <h1 class="reveal">Güvenilir & Profesyonel <span class="gold">Avize</span> Çözümleri</h1>
         <p class="lead reveal">
-          Aile işletmemiz Çabuk Elektrik olarak, salon, mutfak, ada ve aplik ihtiyaçlarınız için kaliteli avizeler sunuyoruz. Oda ölçüsü ve fotoğrafınızı paylaşın, size en uygun modeli profesyonel ekibimizle birlikte belirleyelim.
+          Aile işletmemiz Çabuk Elektrik olarak, salon, mutfak, çocuk odası ve aplik ihtiyaçlarınız için kaliteli avizeler sunuyoruz. Oda ölçüsü ve fotoğrafınızı paylaşın, size en uygun modeli profesyonel ekibimizle birlikte belirleyelim.
         </p>
 
         <div class="hero__actions reveal">
@@ -94,8 +100,9 @@
         <div class="frame">
           <div class="frame__shine"></div>
           <img
-            alt="Çabuk Elektrik - Avize ve Aydınlatma Çözümleri"
+            alt=""
             src="https://images.unsplash.com/photo-1544551763-cede6f5e5007?auto=format&fit=crop&w=1600&q=70"
+            onerror="this.style.display='none';"
           />
           <div class="hero__overlay">
             <h2 class="hero__overlay-title reveal">Mekânına Uygun Avizeyi Birlikte Seçelim</h2>
@@ -129,6 +136,7 @@
         <button class="chip" data-filter="Klasik">Klasik</button>
         <button class="chip" data-filter="Modern">Modern</button>
         <button class="chip" data-filter="Aplik">Aplik</button>
+        <button class="chip" data-filter="Anahtar">Anahtar</button>
       </div>
     </div>
   </section>
@@ -260,6 +268,41 @@
       </div>
     </div>
   </footer>
+
+  <!-- Product Detail Modal -->
+  <div class="modal" id="productModal" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
+    <div class="modal__overlay" id="modalOverlay"></div>
+    <div class="modal__content">
+      <button class="modal__close" id="modalClose" aria-label="Kapat">
+        <span>×</span>
+      </button>
+      <h2 class="modal__title" id="modalTitle">Ürün Detayları</h2>
+      <div class="modal__body">
+        <div class="modal__info">
+          <div class="modal__row">
+            <span class="modal__label">Ölçü:</span>
+            <span class="modal__value" id="modalSize">-</span>
+          </div>
+          <div class="modal__row">
+            <span class="modal__label">Ampul:</span>
+            <span class="modal__value" id="modalBulbs">-</span>
+          </div>
+          <div class="modal__row">
+            <span class="modal__label">Kategori:</span>
+            <span class="modal__value" id="modalCategory">-</span>
+          </div>
+          <div class="modal__row modal__row--price">
+            <span class="modal__label">Fiyat:</span>
+            <span class="modal__value modal__value--price" id="modalPrice">Fiyat için WhatsApp</span>
+          </div>
+        </div>
+      </div>
+      <div class="modal__actions">
+        <a class="btn btn--primary" id="modalWhatsApp" href="#" target="_blank" rel="noopener">WhatsApp'tan Yaz</a>
+        <button class="btn btn--ghost" id="modalCloseBtn">Kapat</button>
+      </div>
+    </div>
+  </div>
 
   <script src="./app.js"></script>
 </body>
