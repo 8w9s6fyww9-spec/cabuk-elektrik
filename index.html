@@ -129,14 +129,9 @@
 
       <div class="chips reveal" id="chips">
         <button class="chip is-active" data-filter="all">Tümü</button>
-        <button class="chip" data-filter="Salon">Salon</button>
-        <button class="chip" data-filter="Ampul">Ampul</button>
-        <button class="chip" data-filter="Mutfak">Mutfak</button>
-        <button class="chip" data-filter="Ada">Çocuk Odası</button>
-        <button class="chip" data-filter="Klasik">Klasik</button>
-        <button class="chip" data-filter="Modern">Modern</button>
-        <button class="chip" data-filter="Aplik">Aplik</button>
+        <button class="chip" data-filter="Avize">Avize</button>
         <button class="chip" data-filter="Anahtar">Anahtar</button>
+        <button class="chip" data-filter="Ampul">Ampul</button>
       </div>
     </div>
   </section>
@@ -270,36 +265,44 @@
   </footer>
 
   <!-- Product Detail Modal -->
-  <div class="modal" id="productModal" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
-    <div class="modal__overlay" id="modalOverlay"></div>
-    <div class="modal__content">
-      <button class="modal__close" id="modalClose" aria-label="Kapat">
+  <div class="modal hidden" id="productModal" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
+    <div class="modal__overlay modal__backdrop" id="modalOverlay" data-close="1"></div>
+    <div class="modal__content modal__card" role="dialog" aria-modal="true">
+      <button class="modal__close" id="modalClose" data-close="1" aria-label="Kapat">
         <span>×</span>
       </button>
-      <h2 class="modal__title" id="modalTitle">Ürün Detayları</h2>
-      <div class="modal__body">
-        <div class="modal__info">
-          <div class="modal__row">
-            <span class="modal__label">Ölçü:</span>
-            <span class="modal__value" id="modalSize">-</span>
+      <div class="modal__grid" id="modalContent">
+        <div class="modal__image">
+          <img id="modalImage" src="" alt="" />
+        </div>
+        <div class="modal__info-wrapper">
+          <h2 class="modal__title" id="modalTitle">Ürün Detayları</h2>
+          <div class="modal__body">
+            <div class="modal__info">
+              <div class="modal__row">
+                <span class="modal__label">Ölçü:</span>
+                <span class="modal__value" id="modalSize">-</span>
+              </div>
+              <div class="modal__row">
+                <span class="modal__label">Ampul:</span>
+                <span class="modal__value" id="modalBulbs">-</span>
+              </div>
+              <div class="modal__row">
+                <span class="modal__label">Kategori:</span>
+                <span class="modal__value" id="modalCategory">-</span>
+              </div>
+              <div class="modal__row modal__row--price">
+                <span class="modal__label">Fiyat:</span>
+                <span class="modal__value modal__value--price" id="modalPrice">Fiyat için WhatsApp</span>
+              </div>
+            </div>
+            <p class="modal__desc">Ürün görseline göre net fiyat ve montaj bilgisi için yazın.</p>
           </div>
-          <div class="modal__row">
-            <span class="modal__label">Ampul:</span>
-            <span class="modal__value" id="modalBulbs">-</span>
-          </div>
-          <div class="modal__row">
-            <span class="modal__label">Kategori:</span>
-            <span class="modal__value" id="modalCategory">-</span>
-          </div>
-          <div class="modal__row modal__row--price">
-            <span class="modal__label">Fiyat:</span>
-            <span class="modal__value modal__value--price" id="modalPrice">Fiyat için WhatsApp</span>
+          <div class="modal__actions">
+            <a class="btn btn--primary" id="modalWhatsApp" href="#" target="_blank" rel="noopener">WhatsApp'tan Teklif Al</a>
+            <button class="btn btn--ghost" id="modalCloseBtn" data-close="1">Kapat</button>
           </div>
         </div>
-      </div>
-      <div class="modal__actions">
-        <a class="btn btn--primary" id="modalWhatsApp" href="#" target="_blank" rel="noopener">WhatsApp'tan Yaz</a>
-        <button class="btn btn--ghost" id="modalCloseBtn">Kapat</button>
       </div>
     </div>
   </div>

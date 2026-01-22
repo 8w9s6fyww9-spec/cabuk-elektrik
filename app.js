@@ -28,7 +28,7 @@ const SETTINGS = {
     {
       id: "SALON-001",
       title: "Modern Avize",
-      category: ["Salon", "Klasik"],
+      category: ["Avize"],
       bulbs: "6xE14",
       size: "Orta Boy",
       priceText: "Fiyat için WhatsApp",
@@ -37,7 +37,7 @@ const SETTINGS = {
     {
       id: "SALON-002",
       title: "Modern Avize",
-      category: ["Salon", "Klasik"],
+      category: ["Avize"],
       bulbs: "8xE14",
       size: "Büyük Boy",
       priceText: "Fiyat için WhatsApp",
@@ -46,7 +46,7 @@ const SETTINGS = {
     {
       id: "SALON-003",
       title: "Modern Avize",
-      category: ["Salon", "Modern"],
+      category: ["Avize"],
       bulbs: "LED",
       size: "Standart",
       priceText: "Fiyat için WhatsApp",
@@ -55,7 +55,7 @@ const SETTINGS = {
     {
       id: "SALON-004",
       title: "Modern Avize",
-      category: ["Salon"],
+      category: ["Avize"],
       bulbs: "6xE14",
       size: "Orta Boy",
       priceText: "Fiyat için WhatsApp",
@@ -187,7 +187,7 @@ Oda ölçüsü/fotoğrafı gönderebilirim.`;
         <div class="card__meta" style="margin-top:10px">${cats}</div>
         <div class="card__actions">
           <a class="smallbtn smallbtn--gold" href="${waLink}" target="_blank" rel="noopener">WhatsApp'tan Teklif Al</a>
-          <button class="smallbtn" data-detail="${escapeHtml(p.id)}" data-title="${escapeHtml(p.title)}" data-size="${escapeHtml(p.size)}" data-bulbs="${escapeHtml(p.bulbs)}" data-category="${escapeHtml(categoryText)}" data-price="${escapeHtml(priceText)}">Detay</button>
+          <button class="smallbtn detail-btn" data-detail="${escapeHtml(p.id)}">Detay</button>
         </div>
       </div>
     `;
@@ -196,45 +196,58 @@ Oda ölçüsü/fotoğrafı gönderebilirim.`;
   
   function render(){
     if (!grid) return;
-    grid.innerHTML = "";
-    const filtered = PRODUCTS.filter(p => productMatches(p, activeFilter));
-    filtered.forEach((p, index) => {
-      const card = createCard(p);
-      // Stagger animation for product cards
-      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      if (!prefersReducedMotion) {
-        card.style.transitionDelay = `${index * 0.07}s`;
-      }
-      grid.appendChild(card);
-    });
-  
-    // Detay butonları
-    grid.querySelectorAll("button[data-detail]").forEach(btn => {
-      btn.addEventListener("click", () => {
-        const productId = btn.getAttribute("data-detail") || "";
-        const title = btn.getAttribute("data-title") || "";
-        const size = btn.getAttribute("data-size") || "";
-        const bulbs = btn.getAttribute("data-bulbs") || "";
-        const category = btn.getAttribute("data-category") || "";
-        const price = btn.getAttribute("data-price") || "";
-        
-        // Find product in PRODUCTS array for WhatsApp link
-        const product = PRODUCTS.find(p => p.id === productId);
-        openModal({
-          title,
-          size,
-          bulbs,
-          category,
-          price,
-          product
-        });
-      });
-    });
     
-    // Re-initialize scroll reveal for new cards
-    setTimeout(() => {
-      initScrollReveal();
-    }, 50);
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    
+    if (!prefersReducedMotion) {
+      // Fade out existing cards
+      const existingCards = grid.querySelectorAll('.card');
+      existingCards.forEach(card => {
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(10px)';
+      });
+      
+      // After fade out, update content
+      setTimeout(() => {
+        grid.innerHTML = "";
+        const filtered = PRODUCTS.filter(p => productMatches(p, activeFilter));
+        filtered.forEach((p, index) => {
+          const card = createCard(p);
+          // Initial state for fade in
+          card.style.opacity = '0';
+          card.style.transform = 'translateY(10px)';
+          card.style.transitionDelay = `${index * 0.07}s`;
+          
+          grid.appendChild(card);
+          
+          // Trigger fade in
+          setTimeout(() => {
+            card.style.transition = 'opacity 0.35s ease-out, transform 0.35s ease-out';
+            card.style.opacity = '1';
+            card.style.transform = 'translateY(0)';
+          }, 10);
+        });
+        
+        // Re-initialize scroll reveal for new cards
+        setTimeout(() => {
+          initScrollReveal();
+        }, 50);
+      }, 200);
+    } else {
+      // Reduced motion: instant update
+      grid.innerHTML = "";
+      const filtered = PRODUCTS.filter(p => productMatches(p, activeFilter));
+      filtered.forEach((p, index) => {
+        const card = createCard(p);
+        grid.appendChild(card);
+      });
+      
+      // Re-initialize scroll reveal for new cards
+      setTimeout(() => {
+        initScrollReveal();
+      }, 50);
+    }
+    // Detay butonları artık event delegation ile çalışıyor (render dışında tanımlı)
   }
   render();
   
@@ -497,38 +510,46 @@ Oda ölçüsü/fotoğrafı gönderebilirim.`;
   const modalCategory = document.getElementById('modalCategory');
   const modalPrice = document.getElementById('modalPrice');
   const modalWhatsApp = document.getElementById('modalWhatsApp');
+  const modalImage = document.getElementById('modalImage');
   
-  function openModal(productData) {
+  function openProductModal(productId) {
     if (!modal) return;
     
-    // Fill modal with product data
-    modalTitle.textContent = productData.title || 'Ürün Detayları';
-    modalSize.textContent = productData.size || '-';
-    modalBulbs.textContent = productData.bulbs || '-';
-    modalCategory.textContent = productData.category || '-';
-    modalPrice.textContent = productData.price || 'Fiyat için WhatsApp';
+    // Find product in PRODUCTS array
+    const product = PRODUCTS.find(p => p.id === productId);
+    if (!product) return;
     
-    // Set WhatsApp link
-    if (productData.product) {
-      const categoryText = productData.product.category.join(", ");
-      const productMessage = `Merhaba, Çabuk Elektrik'ten ${escapeHtml(productData.product.title)} (${escapeHtml(productData.product.id)}) için fiyat ve stok bilgisi alabilir miyim?
-Ölçü: ${escapeHtml(productData.product.size)} • Ampul: ${escapeHtml(productData.product.bulbs)}
-Kullanım alanı: ${escapeHtml(categoryText)}
-Oda ölçüsü/fotoğrafı gönderebilirim.`;
-      const waText = encodeURIComponent(productMessage);
-      modalWhatsApp.href = `https://wa.me/${SETTINGS.whatsappNumber}?text=${waText}`;
-    } else {
-      modalWhatsApp.href = makeWhatsAppLink();
+    // Fill modal with product data
+    modalTitle.textContent = product.title || 'Ürün Detayları';
+    modalSize.textContent = product.size || '-';
+    modalBulbs.textContent = product.bulbs || '-';
+    modalCategory.textContent = product.category.join(", ") || '-';
+    modalPrice.textContent = product.priceText || 'Fiyat için WhatsApp';
+    
+    // Set product image
+    if (product.img && modalImage) {
+      modalImage.src = product.img;
+      modalImage.alt = product.title || 'Ürün görseli';
     }
     
+    // Set WhatsApp link
+    const categoryText = product.category.join(", ");
+    const productMessage = `Merhaba, Çabuk Elektrik'ten ${escapeHtml(product.title)} (${escapeHtml(product.id)}) için fiyat ve stok bilgisi alabilir miyim?
+Ölçü: ${escapeHtml(product.size)} • Ampul: ${escapeHtml(product.bulbs)}
+Kullanım alanı: ${escapeHtml(categoryText)}
+Oda ölçüsü/fotoğrafı gönderebilirim.`;
+    const waText = encodeURIComponent(productMessage);
+    modalWhatsApp.href = `https://wa.me/${SETTINGS.whatsappNumber}?text=${waText}`;
+    
     // Show modal
-    modal.classList.add('is-open');
+    modal.classList.remove('hidden');
     modal.setAttribute('aria-hidden', 'false');
     document.body.style.overflow = 'hidden';
     
     // Trigger animation
     setTimeout(() => {
-      modal.classList.add('is-visible');
+      modal.style.opacity = '1';
+      modal.style.visibility = 'visible';
     }, 10);
   }
   
@@ -536,31 +557,45 @@ Oda ölçüsü/fotoğrafı gönderebilirim.`;
     if (!modal) return;
     
     // Trigger close animation
-    modal.classList.remove('is-visible');
+    modal.style.opacity = '0';
+    modal.style.visibility = 'hidden';
     
     setTimeout(() => {
-      modal.classList.remove('is-open');
+      modal.classList.add('hidden');
       modal.setAttribute('aria-hidden', 'true');
       document.body.style.overflow = '';
     }, 300);
   }
   
-  // Close modal events
-  if (modalOverlay) {
-    modalOverlay.addEventListener('click', closeModal);
-  }
-  
-  if (modalClose) {
-    modalClose.addEventListener('click', closeModal);
-  }
-  
-  if (modalCloseBtn) {
-    modalCloseBtn.addEventListener('click', closeModal);
-  }
+  // Event delegation for Detay buttons and modal close
+  document.addEventListener('click', (e) => {
+    // Detay button
+    const detailBtn = e.target.closest('button[data-detail], .detail-btn');
+    if (detailBtn) {
+      const productId = detailBtn.getAttribute('data-detail') || '';
+      if (productId) {
+        e.preventDefault();
+        e.stopPropagation();
+        openProductModal(productId);
+        return;
+      }
+    }
+    
+    // Close button or backdrop
+    if (e.target.closest('#modalClose, #modalCloseBtn') || 
+        e.target.hasAttribute('data-close') || 
+        e.target.classList.contains('modal__backdrop') || 
+        e.target.classList.contains('modal__overlay')) {
+      e.preventDefault();
+      e.stopPropagation();
+      closeModal();
+      return;
+    }
+  });
   
   // Close on ESC key
   document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && modal && modal.classList.contains('is-open')) {
+    if (e.key === 'Escape' && modal && !modal.classList.contains('hidden')) {
       closeModal();
     }
   });
