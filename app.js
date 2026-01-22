@@ -5,117 +5,333 @@ const SETTINGS = {
     phoneText: "0544 841 68 06"
   };
   
-  // Ürün Kataloğu
-  const PRODUCTS = [
+  // Görsel Dosyaları Listesi
+  const IMAGE_FILES = [
+    "ampul001.jpg",
+    "ampul002.jpg",
+    "anahtar01.jpg",
+    "anahtar02.jpg",
+    "anahtar03.jpg",
+    "anahtar04.jpg",
+    "anahtar05.jpg",
+    "anahtar06.jpg",
+    "salon001.jpg",
+    "salon002.jpg",
+    "salon003.jpg",
+    "salon004.jpg",
+    "salon005.jpg",
+    "salon006.jpg",
+    "salon007.jpg",
+    "salon008.jpg",
+    "salon009.jpg",
+    "salon010.jpg",
+    "salon011.jpg",
+    "salon012.jpg",
+    "salon013.jpg",
+    "salon014.jpg",
+    "salon015.jpg"
+  ];
+
+  // Dosya adından ürün bilgisi oluşturma fonksiyonu
+  function createProductFromImage(filename) {
+    const baseName = filename.replace('.jpg', '').toLowerCase();
+    let id, title, category, bulbs, size;
+    
+    if (baseName.startsWith('salon')) {
+      const num = baseName.replace('salon', '');
+      id = `SALON-${num.padStart(3, '0')}`;
+      title = "Modern Avize";
+      category = ["Avize"];
+      bulbs = "—";
+      size = "Standart";
+    } else if (baseName.startsWith('anahtar')) {
+      const num = baseName.replace('anahtar', '').padStart(2, '0');
+      id = `ANAHTAR-${num}`;
+      title = "Elektrik Anahtarı";
+      category = ["Anahtar"];
+      bulbs = "—";
+      size = "Standart";
+    } else if (baseName.startsWith('ampul')) {
+      const num = baseName.replace('ampul', '').padStart(3, '0');
+      id = `AMPUL-${num}`;
+      title = "Modern Ampul";
+      category = ["Ampul"];
+      bulbs = "1xE27";
+      size = "Standart";
+    } else {
+      // Fallback
+      id = baseName.toUpperCase().replace(/([a-z])(\d)/, '$1-$2');
+      title = "Ürün";
+      category = ["Diğer"];
+      bulbs = "—";
+      size = "Standart";
+    }
+    
+    return {
+      id: id,
+      title: title,
+      category: category,
+      bulbs: bulbs,
+      size: size,
+      priceText: "Fiyat için WhatsApp",
+      img: `images/${filename}`
+    };
+  }
+
+  // Ürün Kataloğu - Otomatik Oluşturulmuş
+  let PRODUCTS = IMAGE_FILES.map(createProductFromImage);
+  
+  // Özel ürünler - Otomatik oluşturulanları override eder
+  const customProducts = [
     {
-      id: "AMPUL-001",
-      title: "Modern Ampul",
+      id: "ampul001",
+      title: "K2 Ampul",
       category: ["Ampul"],
-      bulbs: "1xE27",
+      bulbs: "E27",
       size: "Standart",
       priceText: "Fiyat için WhatsApp",
-      img: "./images/ampul001.jpg"
+      img: "images/ampul001.jpg",
+      watt: "50W",
+      duy: "E27",
+      renk: "Beyaz"
     },
     {
-      id: "AMPUL-002",
-      title: "Modern Ampul",
+      id: "ampul002",
+      title: "ACK Ampul",
       category: ["Ampul"],
-      bulbs: "1xE27",
+      bulbs: "E27",
       size: "Standart",
       priceText: "Fiyat için WhatsApp",
-      img: "./images/ampul002.jpg"
+      img: "images/ampul002.jpg",
+      duy: "E27",
+      renk: "Beyaz"
     },
     {
-      id: "SALON-001",
-      title: "Modern Avize",
+      id: "anahtar01",
+      title: "VİKO",
+      category: ["Anahtar"],
+      bulbs: "—",
+      size: "Standart",
+      priceText: "Fiyat için WhatsApp",
+      img: "images/anahtar01.jpg",
+      renk: "Beyaz"
+    },
+    {
+      id: "anahtar02",
+      title: "VİKO",
+      category: ["Anahtar"],
+      bulbs: "—",
+      size: "Standart",
+      priceText: "Fiyat için WhatsApp",
+      img: "images/anahtar02.jpg",
+      renk: "Beyaz"
+    },
+    {
+      id: "anahtar03",
+      title: "OVİVO",
+      category: ["Anahtar"],
+      bulbs: "—",
+      size: "Standart",
+      priceText: "Fiyat için WhatsApp",
+      img: "images/anahtar03.jpg",
+      renk: "Antrasit"
+    },
+    {
+      id: "anahtar04",
+      title: "GÜNSAN",
+      category: ["Anahtar"],
+      bulbs: "—",
+      size: "Standart",
+      priceText: "Fiyat için WhatsApp",
+      img: "images/anahtar04.jpg",
+      renk: "Krem"
+    },
+    {
+      id: "anahtar05",
+      title: "OVİVO",
+      category: ["Anahtar"],
+      bulbs: "—",
+      size: "Standart",
+      priceText: "Fiyat için WhatsApp",
+      img: "images/anahtar05.jpg",
+      renk: "Antrasit"
+    },
+    {
+      id: "anahtar06",
+      title: "GÜNSAN",
+      category: ["Anahtar"],
+      bulbs: "—",
+      size: "Standart",
+      priceText: "Fiyat için WhatsApp",
+      img: "images/anahtar06.jpg",
+      renk: "Beyaz"
+    },
+    {
+      id: "salon001",
+      title: "İSTİRİDYE AVİZE",
       category: ["Avize"],
-      bulbs: "6xE14",
-      size: "Orta Boy",
+      bulbs: "—",
+      size: "Standart",
       priceText: "Fiyat için WhatsApp",
-      img: "./images/salon001.jpg"
+      img: "images/salon001.jpg",
+      renk: "Gold"
     },
     {
-      id: "SALON-002",
-      title: "Modern Avize",
+      id: "salon002",
+      title: "SARKIT AVİZE",
       category: ["Avize"],
-      bulbs: "8xE14",
-      size: "Büyük Boy",
+      bulbs: "—",
+      size: "Standart",
       priceText: "Fiyat için WhatsApp",
-      img: "./images/salon002.jpg"
+      img: "images/salon002.jpg",
+      renk: "Siyah/Metal"
     },
     {
-      id: "SALON-003",
-      title: "Modern Avize",
+      id: "salon003",
+      title: "OSMANLI KRİSTAL AVİZE",
       category: ["Avize"],
-      bulbs: "LED",
+      bulbs: "—",
       size: "Standart",
       priceText: "Fiyat için WhatsApp",
-      img: "./images/salon003.jpg"
+      img: "images/salon003.jpg",
+      renk: "Gold"
     },
     {
-      id: "SALON-004",
-      title: "Modern Avize",
+      id: "salon004",
+      title: "LED SARKIT AVİZE",
       category: ["Avize"],
-      bulbs: "6xE14",
-      size: "Orta Boy",
-      priceText: "Fiyat için WhatsApp",
-      img: "./images/salon004.jpg"
-    },
-    {
-      id: "ANAHTAR-001",
-      title: "Elektrik Anahtarı",
-      category: ["Anahtar"],
-      bulbs: "-",
+      bulbs: "—",
       size: "Standart",
       priceText: "Fiyat için WhatsApp",
-      img: "./images/anahtar01.jpg"
+      img: "images/salon004.jpg",
+      renk: "Gold"
     },
     {
-      id: "ANAHTAR-002",
-      title: "Elektrik Anahtarı",
-      category: ["Anahtar"],
-      bulbs: "-",
+      id: "salon005",
+      title: "KÜRE CAMLI MODERN LED AVİZE",
+      category: ["Avize"],
+      bulbs: "—",
       size: "Standart",
       priceText: "Fiyat için WhatsApp",
-      img: "./images/anahtar02.jpg"
+      img: "images/salon005.jpg",
+      renk: "Krom"
     },
     {
-      id: "ANAHTAR-003",
-      title: "Elektrik Anahtarı",
-      category: ["Anahtar"],
-      bulbs: "-",
+      id: "salon006",
+      title: "TEKLİ CAM SARKIT AVİZE",
+      category: ["Avize"],
+      bulbs: "—",
       size: "Standart",
       priceText: "Fiyat için WhatsApp",
-      img: "./images/anahtar03.jpg"
+      img: "images/salon006.jpg",
+      renk: "Beyaz"
     },
     {
-      id: "ANAHTAR-004",
-      title: "Elektrik Anahtarı",
-      category: ["Anahtar"],
-      bulbs: "-",
+      id: "salon007",
+      title: "TEKLİ CAM SARKIT AVİZE",
+      category: ["Avize"],
+      bulbs: "—",
       size: "Standart",
       priceText: "Fiyat için WhatsApp",
-      img: "./images/anahtar04.jpg"
+      img: "images/salon007.jpg",
+      renk: "Siyah"
     },
     {
-      id: "ANAHTAR-005",
-      title: "Elektrik Anahtarı",
-      category: ["Anahtar"],
-      bulbs: "-",
+      id: "salon008",
+      title: "TEKLİ PİRAMİT AVİZE",
+      category: ["Avize"],
+      bulbs: "—",
       size: "Standart",
       priceText: "Fiyat için WhatsApp",
-      img: "./images/anahtar05.jpg"
+      img: "images/salon008.jpg",
+      renk: "Siyah/Metal"
     },
     {
-      id: "ANAHTAR-006",
-      title: "Elektrik Anahtarı",
-      category: ["Anahtar"],
-      bulbs: "-",
+      id: "salon009",
+      title: "TEKLİ SARKIT AVİZE",
+      category: ["Avize"],
+      bulbs: "—",
       size: "Standart",
       priceText: "Fiyat için WhatsApp",
-      img: "./images/anahtar06.jpg"
+      img: "images/salon009.jpg",
+      renk: "Beyaz"
+    },
+    {
+      id: "salon010",
+      title: "KLASİK FENER DUVAR APLİĞİ",
+      category: ["Avize"],
+      bulbs: "—",
+      size: "Standart",
+      priceText: "Fiyat için WhatsApp",
+      img: "images/salon010.jpg",
+      renk: "Siyah"
+    },
+    {
+      id: "salon011",
+      title: "SARAY TİPİ DUVAR APLİĞİ",
+      category: ["Avize"],
+      bulbs: "—",
+      size: "Standart",
+      priceText: "Fiyat için WhatsApp",
+      img: "images/salon011.jpg",
+      renk: "Krem"
+    },
+    {
+      id: "salon012",
+      title: "SİYAH MODERN TEKLİ SARKIT AVİZE",
+      category: ["Avize"],
+      bulbs: "—",
+      size: "Standart",
+      priceText: "Fiyat için WhatsApp",
+      img: "images/salon012.jpg",
+      renk: "Siyah"
+    },
+    {
+      id: "salon013",
+      title: "SİYAH TEKLİ SARKIT AVİZE",
+      category: ["Avize"],
+      bulbs: "—",
+      size: "Standart",
+      priceText: "Fiyat için WhatsApp",
+      img: "images/salon013.jpg",
+      renk: "Siyah"
+    },
+    {
+      id: "salon014",
+      title: "HALAT SARKIT AVİZE",
+      category: ["Avize"],
+      bulbs: "—",
+      size: "Standart",
+      priceText: "Fiyat için WhatsApp",
+      img: "images/salon014.jpg",
+      renk: "Beyaz"
+    },
+    {
+      id: "salon015",
+      title: "KRİSTAL TAŞLI SALON AVİZESİ",
+      category: ["Avize"],
+      bulbs: "—",
+      size: "Standart",
+      priceText: "Fiyat için WhatsApp",
+      img: "images/salon015.jpg",
+      renk: "Beyaz/Cam"
     }
   ];
+  
+  // Özel ürünleri ekle veya güncelle
+  customProducts.forEach(customProduct => {
+    const existingIndex = PRODUCTS.findIndex(p => p.id === customProduct.id || p.img === customProduct.img);
+    if (existingIndex !== -1) {
+      // Mevcut ürünü güncelle
+      PRODUCTS[existingIndex] = { ...PRODUCTS[existingIndex], ...customProduct };
+    } else {
+      // Yeni ürün ekle
+      PRODUCTS.push(customProduct);
+    }
+  });
+  
+  // Toplam ürün sayısını console'a yazdır
+  console.log("Toplam ürün:", PRODUCTS.length);
   
   const grid = document.getElementById("productGrid");
   const chips = document.getElementById("chips");
@@ -136,7 +352,7 @@ const SETTINGS = {
   
   function wireWhatsappLinks(){
     const link = makeWhatsAppLink();
-    const ids = ["whatsappBtn", "whatsappHero", "fabWhatsapp", "heroOverlayWhatsapp"];
+    const ids = ["whatsappBtn", "whatsappHero", "fabWhatsapp", "heroOverlayWhatsapp", "faqCtaWhatsapp"];
     ids.forEach(id => {
       const el = document.getElementById(id);
       if (el) el.setAttribute("href", link);
@@ -152,8 +368,19 @@ const SETTINGS = {
   // --- Render products ---
   let activeFilter = "all";
   
+  // Kategori mapping: HTML'deki kategori isimlerini data-category değerlerine çevir
+  function getCategorySlug(categoryName) {
+    const mapping = {
+      "Avize": "avize",
+      "Anahtar": "anahtar",
+      "Ampul": "ampul"
+    };
+    return mapping[categoryName] || categoryName.toLowerCase();
+  }
+  
   function productMatches(p, filter){
     if (filter === "all") return true;
+    // Kategori array'inde filter değerini ara
     return p.category.includes(filter);
   }
   
@@ -161,17 +388,108 @@ const SETTINGS = {
     const cats = p.category.map(c => `<span class="tag">${escapeHtml(c)}</span>`).join("");
     const categoryText = p.category.join(", ");
     const priceText = p.priceText || "Fiyat için WhatsApp";
+    
+    // İlk kategoriyi data-category için kullan (küçük harf)
+    const primaryCategory = p.category[0] || "";
+    const categorySlug = getCategorySlug(primaryCategory);
 
-    // Teklif odaklı WhatsApp mesajı
-    const productMessage = `Merhaba, Çabuk Elektrik'ten ${escapeHtml(p.title)} (${escapeHtml(p.id)}) için fiyat ve stok bilgisi alabilir miyim?
+    // WhatsApp mesajı - özel ürünler için özel mesaj
+    let productMessage;
+    if (p.watt && p.duy && p.renk) {
+      // K2 Ampul gibi watt içeren özel ürünler için
+      productMessage = `Merhaba, K2 Ampul (50W, E27, Beyaz) için fiyat alabilir miyim?`;
+    } else if (p.duy && p.renk && !p.watt) {
+      // ACK Ampul gibi sadece duy ve renk içeren özel ürünler için
+      productMessage = `Merhaba, ACK Ampul (E27, Beyaz) için fiyat alabilir miyim?`;
+    } else if (p.id === "anahtar01") {
+      // VİKO anahtar01 için özel mesaj
+      productMessage = `Merhaba, anahtar01 için fiyat alabilir miyim?`;
+    } else if (p.id === "anahtar02") {
+      // VİKO anahtar02 için özel mesaj
+      productMessage = `Merhaba, anahtar02 için fiyat alabilir miyim?`;
+    } else if (p.id === "anahtar03") {
+      // OVİVO anahtar03 için özel mesaj
+      productMessage = `Merhaba, anahtar03 için fiyat alabilir miyim?`;
+    } else if (p.id === "anahtar04") {
+      // GÜNSAN anahtar04 için özel mesaj
+      productMessage = `Merhaba, anahtar04 için fiyat alabilir miyim?`;
+    } else if (p.id === "anahtar05") {
+      // OVİVO anahtar05 için özel mesaj
+      productMessage = `Merhaba, anahtar05 için fiyat alabilir miyim?`;
+    } else if (p.id === "anahtar06") {
+      // GÜNSAN anahtar06 için özel mesaj
+      productMessage = `Merhaba, anahtar06 için fiyat alabilir miyim?`;
+    } else if (p.id === "salon001") {
+      // İSTİRİDYE AVİZE için özel mesaj
+      productMessage = `Merhaba, İSTRİDYE AVİZE için fiyat alabilir miyim?`;
+    } else if (p.id === "salon002") {
+      // SARKIT AVİZE için özel mesaj
+      productMessage = `Merhaba, Sarkıt Avize için fiyat alabilir miyim?`;
+    } else if (p.id === "salon003") {
+      // OSMANLI KRİSTAL AVİZE için özel mesaj
+      productMessage = `Merhaba, OSMANLI KRİSTAL AVİZE için fiyat alabilir miyim?`;
+    } else if (p.id === "salon004") {
+      // LED SARKIT AVİZE için özel mesaj
+      productMessage = `Merhaba, LED SARKIT AVİZE için fiyat alabilir miyim?`;
+    } else if (p.id === "salon005") {
+      // KÜRE CAMLI MODERN LED AVİZE için özel mesaj
+      productMessage = `Merhaba, KÜRE CAMLI MODERN AVİZE için fiyat alabilir miyim?`;
+    } else if (p.id === "salon006") {
+      // TEKLİ CAM SARKIT AVİZE için özel mesaj
+      productMessage = `Merhaba, TEKLİ CAM SARKIT AVİZE için fiyat alabilir miyim?`;
+    } else if (p.id === "salon007") {
+      // TEKLİ CAM SARKIT AVİZE (Siyah) için özel mesaj
+      productMessage = `Merhaba, TEKLİ CAM SARKIT AVİZE için fiyat alabilir miyim?`;
+    } else if (p.id === "salon008") {
+      // TEKLİ PİRAMİT AVİZE için özel mesaj
+      productMessage = `Merhaba, TEKLİ PİRAMİT AVİZE için fiyat alabilir miyim?`;
+    } else if (p.id === "salon009") {
+      // TEKLİ SARKIT AVİZE için özel mesaj
+      productMessage = `Merhaba, TEKLİ SARKIT AVİZE için fiyat alabilir miyim?`;
+    } else if (p.id === "salon010") {
+      // KLASİK FENER DUVAR APLİĞİ için özel mesaj
+      productMessage = `Merhaba, KLASİK FENER DUVAR APLİĞİ için fiyat alabilir miyim?`;
+    } else if (p.id === "salon011") {
+      // SARAY TİPİ DUVAR APLİĞİ için özel mesaj
+      productMessage = `Merhaba, SARAY TİPİ DUVAR APLİĞİ için fiyat alabilir miyim?`;
+    } else if (p.id === "salon012") {
+      // SİYAH MODERN TEKLİ SARKIT AVİZE için özel mesaj
+      productMessage = `Merhaba, SİYAH MODERN TEKLİ SARKIT AVİZE için fiyat alabilir miyim?`;
+    } else if (p.id === "salon013") {
+      // SİYAH TEKLİ SARKIT AVİZE için özel mesaj
+      productMessage = `Merhaba, SİYAH TEKLİ SARKIT AVİZE için fiyat alabilir miyim?`;
+    } else if (p.id === "salon014") {
+      // HALAT SARKIT AVİZE için özel mesaj
+      productMessage = `Merhaba, HALAT SARKIT AVİZE için fiyat alabilir miyim?`;
+    } else if (p.id === "salon015") {
+      // KRİSTAL TAŞLI SALON AVİZESİ için özel mesaj
+      productMessage = `Merhaba, KRİSTAL TAŞLI SALON AVİZESİ için fiyat alabilir miyim?`;
+    } else {
+      // Standart ürünler için
+      productMessage = `Merhaba, Çabuk Elektrik'ten ${escapeHtml(p.title)} (${escapeHtml(p.id)}) için fiyat ve stok bilgisi alabilir miyim?
 Ölçü: ${escapeHtml(p.size)} • Ampul: ${escapeHtml(p.bulbs)}
 Kullanım alanı: ${escapeHtml(categoryText)}
 Oda ölçüsü/fotoğrafı gönderebilirim.`;
+    }
     const waText = encodeURIComponent(productMessage);
     const waLink = `https://wa.me/${SETTINGS.whatsappNumber}?text=${waText}`;
   
+    // Meta bilgileri - özel ürünler için farklı göster
+    let metaContent = '';
+    if (p.watt && p.duy && p.renk) {
+      metaContent = `<span>${escapeHtml(p.watt)}</span><span>•</span><span>${escapeHtml(p.duy)}</span><span>•</span><span>${escapeHtml(p.renk)}</span>`;
+    } else if (p.duy && p.renk && !p.watt) {
+      metaContent = `<span>${escapeHtml(p.duy)}</span><span>•</span><span>${escapeHtml(p.renk)}</span>`;
+    } else if (p.renk && !p.duy && !p.watt) {
+      // VİKO anahtar veya İSTİRİDYE AVİZE gibi sadece renk içeren ürünler için
+      metaContent = `<span>${escapeHtml(p.renk)}</span>`;
+    } else {
+      metaContent = `<span>${escapeHtml(p.size)}</span><span>•</span><span>${escapeHtml(p.bulbs)}</span>`;
+    }
+  
     const div = document.createElement("div");
     div.className = "card reveal";
+    div.setAttribute("data-category", categorySlug);
     div.innerHTML = `
       <div class="card__img">
         <img src="${p.img}" alt="${escapeHtml(p.title)}" loading="lazy" />
@@ -179,9 +497,7 @@ Oda ölçüsü/fotoğrafı gönderebilirim.`;
       <div class="card__body">
         <div class="card__title">${escapeHtml(p.title)}</div>
         <div class="card__meta">
-          <span>${escapeHtml(p.size)}</span>
-          <span>•</span>
-          <span>${escapeHtml(p.bulbs)}</span>
+          ${metaContent}
         </div>
         <div class="card__price">${escapeHtml(priceText)}</div>
         <div class="card__meta" style="margin-top:10px">${cats}</div>
@@ -194,62 +510,82 @@ Oda ölçüsü/fotoğrafı gönderebilirim.`;
     return div;
   }
   
-  function render(){
+  function render(initialRender = false){
     if (!grid) return;
     
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     
-    if (!prefersReducedMotion) {
-      // Fade out existing cards
-      const existingCards = grid.querySelectorAll('.card');
-      existingCards.forEach(card => {
-        card.style.opacity = '0';
-        card.style.transform = 'translateY(10px)';
-      });
-      
-      // After fade out, update content
-      setTimeout(() => {
-        grid.innerHTML = "";
-        const filtered = PRODUCTS.filter(p => productMatches(p, activeFilter));
-        filtered.forEach((p, index) => {
-          const card = createCard(p);
-          // Initial state for fade in
-          card.style.opacity = '0';
-          card.style.transform = 'translateY(10px)';
-          card.style.transitionDelay = `${index * 0.07}s`;
-          
-          grid.appendChild(card);
-          
-          // Trigger fade in
-          setTimeout(() => {
-            card.style.transition = 'opacity 0.35s ease-out, transform 0.35s ease-out';
-            card.style.opacity = '1';
-            card.style.transform = 'translateY(0)';
-          }, 10);
-        });
-        
-        // Re-initialize scroll reveal for new cards
-        setTimeout(() => {
-          initScrollReveal();
-        }, 50);
-      }, 200);
-    } else {
-      // Reduced motion: instant update
+    // İlk render: Tüm kartları oluştur
+    if (initialRender || grid.children.length === 0) {
       grid.innerHTML = "";
-      const filtered = PRODUCTS.filter(p => productMatches(p, activeFilter));
-      filtered.forEach((p, index) => {
+      PRODUCTS.forEach((p, index) => {
         const card = createCard(p);
+        if (!prefersReducedMotion) {
+          card.style.opacity = '0';
+          card.style.transform = 'scale(0.95) translateY(10px)';
+        }
         grid.appendChild(card);
       });
+      
+      // İlk render animasyonu
+      if (!prefersReducedMotion) {
+        setTimeout(() => {
+          const allCards = grid.querySelectorAll('.card');
+          allCards.forEach((card, index) => {
+            setTimeout(() => {
+              card.style.transition = 'opacity 0.4s ease-out, transform 0.4s ease-out';
+              card.style.opacity = '1';
+              card.style.transform = 'scale(1) translateY(0)';
+            }, index * 0.05);
+          });
+        }, 50);
+      }
       
       // Re-initialize scroll reveal for new cards
       setTimeout(() => {
         initScrollReveal();
       }, 50);
     }
-    // Detay butonları artık event delegation ile çalışıyor (render dışında tanımlı)
+    
+    // Filtreleme: data-category attribute'una göre göster/gizle
+    const allCards = grid.querySelectorAll('.card');
+    const filterSlug = activeFilter === "all" ? null : getCategorySlug(activeFilter);
+    
+    if (!prefersReducedMotion) {
+      // Yumuşak animasyonlu filtreleme
+      allCards.forEach((card, index) => {
+        const cardCategory = card.getAttribute('data-category');
+        const shouldShow = filterSlug === null || cardCategory === filterSlug;
+        
+        if (shouldShow) {
+          // Göster
+          card.style.display = '';
+          requestAnimationFrame(() => {
+            card.style.transition = 'opacity 0.4s ease-out, transform 0.4s ease-out';
+            card.style.opacity = '1';
+            card.style.transform = 'scale(1) translateY(0)';
+          });
+        } else {
+          // Gizle
+          card.style.transition = 'opacity 0.3s ease-out, transform 0.3s ease-out';
+          card.style.opacity = '0';
+          card.style.transform = 'scale(0.95) translateY(-10px)';
+          setTimeout(() => {
+            card.style.display = 'none';
+          }, 300);
+        }
+      });
+    } else {
+      // Reduced motion: anında göster/gizle
+      allCards.forEach((card) => {
+        const cardCategory = card.getAttribute('data-category');
+        const shouldShow = filterSlug === null || cardCategory === filterSlug;
+        card.style.display = shouldShow ? '' : 'none';
+        card.style.opacity = shouldShow ? '1' : '0';
+      });
+    }
   }
-  render();
+  render(true); // İlk render: tüm kartları oluştur
   
   // --- Filters ---
   chips?.addEventListener("click", (e) => {
@@ -259,9 +595,9 @@ Oda ölçüsü/fotoğrafı gönderebilirim.`;
   
     chips.querySelectorAll(".chip").forEach(c => c.classList.remove("is-active"));
     target.classList.add("is-active");
-  
+
     activeFilter = target.getAttribute("data-filter") || "all";
-    render();
+    render(false); // Filtreleme: mevcut kartları göster/gizle
   });
   
   // --- Phone copy ---
@@ -338,13 +674,10 @@ Oda ölçüsü/fotoğrafı gönderebilirim.`;
     // Check if animation has already been played
     if (chatContainer.dataset.animated === 'true') return;
     
-    // Message data
+    // Message data - simplified to 2 messages
     const messages = [
-      { text: "Merhaba, salon için avize bakıyorum", sender: "customer", delay: 800 },
-      { text: "Merhaba 😊 Salonunuzun ölçüsünü alabilir miyim?", sender: "business", delay: 1500 },
-      { text: "20 m²", sender: "customer", delay: 1200 },
-      { text: "Bu ölçü için modern salon avizeleri önerebilirim ✨", sender: "business", delay: 1500 },
-      { text: "WhatsApp'tan devam edelim mi?", sender: "business", delay: 1200 }
+      { text: "Merhaba, AI önizleme istiyorum. Oda fotoğrafını ve beğendiğim avize modelini gönderiyorum.", sender: "customer", delay: 400 },
+      { text: "Görseliniz hazırlanıyor ✅", sender: "business", delay: 400 }
     ];
     
     // Check for reduced motion
@@ -485,11 +818,13 @@ Oda ölçüsü/fotoğrafı gönderebilirim.`;
     }
   }
   
-  // Wire WhatsApp CTA button
+  // Wire WhatsApp CTA button (Telefon mockup içindeki AI önizleme butonu - özel numara)
   const whatsappCtaBtn = document.getElementById('whatsappCtaBtn');
   if (whatsappCtaBtn) {
-    const whatsappLink = makeWhatsAppLink();
-    whatsappCtaBtn.setAttribute('href', whatsappLink);
+    // AI önizleme için özel numara ve mesaj
+    const aiPreviewMessage = encodeURIComponent("Merhaba, AI avize önizleme istiyorum. Evin fotoğrafını ve beğendiğim avizeyi gönderiyorum.");
+    const aiPreviewLink = `https://wa.me/905077808410?text=${aiPreviewMessage}`;
+    whatsappCtaBtn.setAttribute('href', aiPreviewLink);
   }
   
   // Initialize WhatsApp chat on page load
@@ -511,20 +846,69 @@ Oda ölçüsü/fotoğrafı gönderebilirim.`;
   const modalPrice = document.getElementById('modalPrice');
   const modalWhatsApp = document.getElementById('modalWhatsApp');
   const modalImage = document.getElementById('modalImage');
+  const modalLabelSize = document.getElementById('modalLabelSize');
+  const modalLabelBulbs = document.getElementById('modalLabelBulbs');
+  const modalLabelCategory = document.getElementById('modalLabelCategory');
   
   function openProductModal(productId) {
-    if (!modal) return;
+    if (!modal || !modalTitle || !modalSize || !modalBulbs || !modalCategory || !modalPrice || !modalWhatsApp) {
+      console.warn('Modal elements not found');
+      return;
+    }
     
     // Find product in PRODUCTS array
     const product = PRODUCTS.find(p => p.id === productId);
-    if (!product) return;
+    if (!product) {
+      console.warn('Product not found:', productId);
+      return;
+    }
     
     // Fill modal with product data
-    modalTitle.textContent = product.title || 'Ürün Detayları';
-    modalSize.textContent = product.size || '-';
-    modalBulbs.textContent = product.bulbs || '-';
-    modalCategory.textContent = product.category.join(", ") || '-';
-    modalPrice.textContent = product.priceText || 'Fiyat için WhatsApp';
+    if (modalTitle) modalTitle.textContent = product.title || 'Ürün Detayları';
+    
+    // Modal satırlarını kontrol et
+    const modalRowSize = document.getElementById('modalRowSize');
+    
+    // Özel ürünler için özellikleri göster
+    if (product.watt && product.duy && product.renk) {
+      // K2 Ampul gibi watt içeren özel ürünler için
+      if (modalRowSize) modalRowSize.style.display = '';
+      if (modalLabelSize) modalLabelSize.textContent = 'Watt:';
+      if (modalSize) modalSize.textContent = product.watt || '-';
+      if (modalLabelBulbs) modalLabelBulbs.textContent = 'Duy:';
+      if (modalBulbs) modalBulbs.textContent = product.duy || '-';
+      if (modalLabelCategory) modalLabelCategory.textContent = 'Renk:';
+      if (modalCategory) modalCategory.textContent = product.renk || '-';
+    } else if (product.duy && product.renk && !product.watt) {
+      // ACK Ampul gibi sadece duy ve renk içeren özel ürünler için
+      // İlk satırı gizle (Watt yok)
+      if (modalRowSize) modalRowSize.style.display = 'none';
+      if (modalLabelBulbs) modalLabelBulbs.textContent = 'Duy:';
+      if (modalBulbs) modalBulbs.textContent = product.duy || '-';
+      if (modalLabelCategory) modalLabelCategory.textContent = 'Renk:';
+      if (modalCategory) modalCategory.textContent = product.renk || '-';
+    } else if (product.renk && !product.duy && !product.watt && (product.id === "anahtar01" || product.id === "anahtar02" || product.id === "anahtar03" || product.id === "anahtar04" || product.id === "anahtar05" || product.id === "anahtar06" || product.id === "salon001" || product.id === "salon002" || product.id === "salon003" || product.id === "salon004" || product.id === "salon005" || product.id === "salon006" || product.id === "salon007" || product.id === "salon008" || product.id === "salon009" || product.id === "salon010" || product.id === "salon011" || product.id === "salon012" || product.id === "salon013" || product.id === "salon014" || product.id === "salon015")) {
+      // VİKO/OVİVO/Günsan anahtar veya İSTİRİDYE AVİZE/SARKIT AVİZE/OSMANLI KRİSTAL AVİZE/LED SARKIT AVİZE/KÜRE CAMLI MODERN LED AVİZE/TEKLİ CAM SARKIT AVİZE/TEKLİ PİRAMİT AVİZE/TEKLİ SARKIT AVİZE/KLASİK FENER DUVAR APLİĞİ/SARAY TİPİ DUVAR APLİĞİ/SİYAH MODERN TEKLİ SARKIT AVİZE/SİYAH TEKLİ SARKIT AVİZE/HALAT SARKIT AVİZE/KRİSTAL TAŞLI SALON AVİZESİ gibi sadece renk içeren özel ürünler için
+      // İlk iki satırı gizle (Watt ve Duy yok)
+      if (modalRowSize) modalRowSize.style.display = 'none';
+      const modalRowBulbs = document.getElementById('modalRowBulbs');
+      if (modalRowBulbs) modalRowBulbs.style.display = 'none';
+      if (modalLabelCategory) modalLabelCategory.textContent = 'Renk:';
+      if (modalCategory) modalCategory.textContent = product.renk || '-';
+    } else {
+      // Standart ürünler için
+      if (modalRowSize) modalRowSize.style.display = '';
+      const modalRowBulbs = document.getElementById('modalRowBulbs');
+      if (modalRowBulbs) modalRowBulbs.style.display = '';
+      if (modalLabelSize) modalLabelSize.textContent = 'Ölçü:';
+      if (modalSize) modalSize.textContent = product.size || '-';
+      if (modalLabelBulbs) modalLabelBulbs.textContent = 'Ampul:';
+      if (modalBulbs) modalBulbs.textContent = product.bulbs || '-';
+      if (modalLabelCategory) modalLabelCategory.textContent = 'Kategori:';
+      if (modalCategory) modalCategory.textContent = product.category.join(", ") || '-';
+    }
+    
+    if (modalPrice) modalPrice.textContent = 'Fiyat için WhatsApp';
     
     // Set product image
     if (product.img && modalImage) {
@@ -532,25 +916,104 @@ Oda ölçüsü/fotoğrafı gönderebilirim.`;
       modalImage.alt = product.title || 'Ürün görseli';
     }
     
-    // Set WhatsApp link
-    const categoryText = product.category.join(", ");
-    const productMessage = `Merhaba, Çabuk Elektrik'ten ${escapeHtml(product.title)} (${escapeHtml(product.id)}) için fiyat ve stok bilgisi alabilir miyim?
+    // Set WhatsApp link - özel ürünler için özel mesaj
+    let productMessage;
+    if (product.watt && product.duy && product.renk) {
+      // K2 Ampul için özel mesaj
+      productMessage = `Merhaba, K2 Ampul (50W, E27, Beyaz) için fiyat alabilir miyim?`;
+    } else if (product.duy && product.renk && !product.watt) {
+      // ACK Ampul için özel mesaj
+      productMessage = `Merhaba, ACK Ampul (E27, Beyaz) için fiyat alabilir miyim?`;
+    } else if (product.id === "anahtar01") {
+      // VİKO anahtar01 için özel mesaj
+      productMessage = `Merhaba, anahtar01 için fiyat alabilir miyim?`;
+    } else if (product.id === "anahtar02") {
+      // VİKO anahtar02 için özel mesaj
+      productMessage = `Merhaba, anahtar02 için fiyat alabilir miyim?`;
+    } else if (product.id === "anahtar03") {
+      // OVİVO anahtar03 için özel mesaj
+      productMessage = `Merhaba, anahtar03 için fiyat alabilir miyim?`;
+    } else if (product.id === "anahtar04") {
+      // GÜNSAN anahtar04 için özel mesaj
+      productMessage = `Merhaba, anahtar04 için fiyat alabilir miyim?`;
+    } else if (product.id === "anahtar05") {
+      // OVİVO anahtar05 için özel mesaj
+      productMessage = `Merhaba, anahtar05 için fiyat alabilir miyim?`;
+    } else if (product.id === "anahtar06") {
+      // GÜNSAN anahtar06 için özel mesaj
+      productMessage = `Merhaba, anahtar06 için fiyat alabilir miyim?`;
+    } else if (product.id === "salon001") {
+      // İSTİRİDYE AVİZE için özel mesaj
+      productMessage = `Merhaba, İSTRİDYE AVİZE için fiyat alabilir miyim?`;
+    } else if (product.id === "salon002") {
+      // SARKIT AVİZE için özel mesaj
+      productMessage = `Merhaba, Sarkıt Avize için fiyat alabilir miyim?`;
+    } else if (product.id === "salon003") {
+      // OSMANLI KRİSTAL AVİZE için özel mesaj
+      productMessage = `Merhaba, OSMANLI KRİSTAL AVİZE için fiyat alabilir miyim?`;
+    } else if (product.id === "salon004") {
+      // LED SARKIT AVİZE için özel mesaj
+      productMessage = `Merhaba, LED SARKIT AVİZE için fiyat alabilir miyim?`;
+    } else if (product.id === "salon005") {
+      // KÜRE CAMLI MODERN LED AVİZE için özel mesaj
+      productMessage = `Merhaba, KÜRE CAMLI MODERN AVİZE için fiyat alabilir miyim?`;
+    } else if (product.id === "salon006") {
+      // TEKLİ CAM SARKIT AVİZE için özel mesaj
+      productMessage = `Merhaba, TEKLİ CAM SARKIT AVİZE için fiyat alabilir miyim?`;
+    } else if (product.id === "salon007") {
+      // TEKLİ CAM SARKIT AVİZE (Siyah) için özel mesaj
+      productMessage = `Merhaba, TEKLİ CAM SARKIT AVİZE için fiyat alabilir miyim?`;
+    } else if (product.id === "salon008") {
+      // TEKLİ PİRAMİT AVİZE için özel mesaj
+      productMessage = `Merhaba, TEKLİ PİRAMİT AVİZE için fiyat alabilir miyim?`;
+    } else if (product.id === "salon009") {
+      // TEKLİ SARKIT AVİZE için özel mesaj
+      productMessage = `Merhaba, TEKLİ SARKIT AVİZE için fiyat alabilir miyim?`;
+    } else if (product.id === "salon010") {
+      // KLASİK FENER DUVAR APLİĞİ için özel mesaj
+      productMessage = `Merhaba, KLASİK FENER DUVAR APLİĞİ için fiyat alabilir miyim?`;
+    } else if (product.id === "salon011") {
+      // SARAY TİPİ DUVAR APLİĞİ için özel mesaj
+      productMessage = `Merhaba, SARAY TİPİ DUVAR APLİĞİ için fiyat alabilir miyim?`;
+    } else if (product.id === "salon012") {
+      // SİYAH MODERN TEKLİ SARKIT AVİZE için özel mesaj
+      productMessage = `Merhaba, SİYAH MODERN TEKLİ SARKIT AVİZE için fiyat alabilir miyim?`;
+    } else if (product.id === "salon013") {
+      // SİYAH TEKLİ SARKIT AVİZE için özel mesaj
+      productMessage = `Merhaba, SİYAH TEKLİ SARKIT AVİZE için fiyat alabilir miyim?`;
+    } else if (product.id === "salon014") {
+      // HALAT SARKIT AVİZE için özel mesaj
+      productMessage = `Merhaba, HALAT SARKIT AVİZE için fiyat alabilir miyim?`;
+    } else if (product.id === "salon015") {
+      // KRİSTAL TAŞLI SALON AVİZESİ için özel mesaj
+      productMessage = `Merhaba, KRİSTAL TAŞLI SALON AVİZESİ için fiyat alabilir miyim?`;
+    } else {
+      // Standart ürünler için
+      const categoryText = product.category.join(", ");
+      productMessage = `Merhaba, Çabuk Elektrik'ten ${escapeHtml(product.title)} (${escapeHtml(product.id)}) için fiyat ve stok bilgisi alabilir miyim?
 Ölçü: ${escapeHtml(product.size)} • Ampul: ${escapeHtml(product.bulbs)}
 Kullanım alanı: ${escapeHtml(categoryText)}
 Oda ölçüsü/fotoğrafı gönderebilirim.`;
+    }
     const waText = encodeURIComponent(productMessage);
-    modalWhatsApp.href = `https://wa.me/${SETTINGS.whatsappNumber}?text=${waText}`;
+    if (modalWhatsApp) {
+      modalWhatsApp.href = `https://wa.me/${SETTINGS.whatsappNumber}?text=${waText}`;
+      modalWhatsApp.textContent = "WhatsApp'tan Teklif Al";
+    }
     
-    // Show modal
+    // Show modal - remove hidden class first
     modal.classList.remove('hidden');
     modal.setAttribute('aria-hidden', 'false');
     document.body.style.overflow = 'hidden';
     
+    // Force reflow to ensure display change takes effect
+    void modal.offsetWidth;
+    
     // Trigger animation
-    setTimeout(() => {
+    requestAnimationFrame(() => {
       modal.style.opacity = '1';
       modal.style.visibility = 'visible';
-    }, 10);
+    });
   }
   
   function closeModal() {
@@ -569,10 +1032,13 @@ Oda ölçüsü/fotoğrafı gönderebilirim.`;
   
   // Event delegation for Detay buttons and modal close
   document.addEventListener('click', (e) => {
-    // Detay button
-    const detailBtn = e.target.closest('button[data-detail], .detail-btn');
+    // Detay button - check if clicked element or its parent is a detail button
+    const detailBtn = e.target.closest('button.detail-btn[data-detail]') || 
+                      e.target.closest('button[data-detail]') ||
+                      (e.target.classList.contains('detail-btn') ? e.target : null);
+    
     if (detailBtn) {
-      const productId = detailBtn.getAttribute('data-detail') || '';
+      const productId = detailBtn.getAttribute('data-detail');
       if (productId) {
         e.preventDefault();
         e.stopPropagation();
@@ -582,10 +1048,10 @@ Oda ölçüsü/fotoğrafı gönderebilirim.`;
     }
     
     // Close button or backdrop
-    if (e.target.closest('#modalClose, #modalCloseBtn') || 
-        e.target.hasAttribute('data-close') || 
-        e.target.classList.contains('modal__backdrop') || 
-        e.target.classList.contains('modal__overlay')) {
+    const closeBtn = e.target.closest('#modalClose, #modalCloseBtn');
+    const backdrop = e.target.closest('.modal__overlay, .modal__backdrop');
+    
+    if (closeBtn || e.target.hasAttribute('data-close') || backdrop) {
       e.preventDefault();
       e.stopPropagation();
       closeModal();
@@ -599,5 +1065,42 @@ Oda ölçüsü/fotoğrafı gönderebilirim.`;
       closeModal();
     }
   });
+  
+  // --- FAQ Accordion ---
+  function initFAQAccordion(){
+    const faqItems = document.querySelectorAll('.faq__item');
+    const faqQuestions = document.querySelectorAll('.faq__question');
+    
+    if (!faqItems.length || !faqQuestions.length) return;
+    
+    faqQuestions.forEach((question, index) => {
+      question.addEventListener('click', () => {
+        const item = question.closest('.faq__item');
+        const isCurrentlyOpen = item.classList.contains('is-open');
+        
+        // Close all items first
+        faqItems.forEach(faqItem => {
+          faqItem.classList.remove('is-open');
+          const faqQuestion = faqItem.querySelector('.faq__question');
+          if (faqQuestion) {
+            faqQuestion.setAttribute('aria-expanded', 'false');
+          }
+        });
+        
+        // Toggle clicked item
+        if (!isCurrentlyOpen) {
+          item.classList.add('is-open');
+          question.setAttribute('aria-expanded', 'true');
+        }
+      });
+    });
+  }
+  
+  // Initialize FAQ accordion on page load
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initFAQAccordion);
+  } else {
+    initFAQAccordion();
+  }
   
   

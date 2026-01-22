@@ -38,31 +38,13 @@
   <!-- Hero -->
   <section class="hero">
     <div class="container hero__grid">
-      <div class="hero__content">
-        <h1 class="reveal">Güvenilir & Profesyonel <span class="gold">Avize</span> Çözümleri</h1>
-        <p class="lead reveal">
-          Aile işletmemiz Çabuk Elektrik olarak, salon, mutfak, çocuk odası ve aplik ihtiyaçlarınız için kaliteli avizeler sunuyoruz. Oda ölçüsü ve fotoğrafınızı paylaşın, size en uygun modeli profesyonel ekibimizle birlikte belirleyelim.
+      <div class="hero__text-block reveal">
+        <h2 class="hero__text-title">Almadan Önce Evinizde Deneyin</h2>
+        <p class="hero__text-desc">
+          Evinizin fotoğrafını ve beğendiğiniz avize modelini WhatsApp'tan gönderin.<br>
+          Yapay zekâ ile avizenin evinizde nasıl durduğunu sizin için oluşturalım.<br>
+          Satın almadan önce görün, sürpriz yaşamayın.
         </p>
-
-        <div class="hero__actions reveal">
-          <a class="btn btn--primary" href="#urunler">Ürünleri İncele</a>
-          <a class="btn btn--ghost" id="whatsappHero" href="#">WhatsApp'tan Yaz</a>
-        </div>
-
-        <div class="hero__trust reveal">
-          <div class="trust">
-            <div class="trust__num">✓</div>
-            <div class="trust__txt">Yılların deneyimi ile kaliteli ürünler</div>
-          </div>
-          <div class="trust">
-            <div class="trust__num">✓</div>
-            <div class="trust__txt">Hızlı danışmanlık ve net fiyat bilgisi</div>
-          </div>
-          <div class="trust">
-            <div class="trust__num">✓</div>
-            <div class="trust__txt">Güvenilir teslimat ve montaj desteği</div>
-          </div>
-        </div>
       </div>
 
       <div class="hero__phone-mock reveal" id="whatsappChat">
@@ -89,7 +71,7 @@
               </div>
               <!-- WhatsApp CTA Button -->
               <div class="phone-mock__cta" id="whatsappCta" style="display: none;">
-                <a class="phone-mock__cta-btn" id="whatsappCtaBtn" href="#">WhatsApp'tan Yaz</a>
+                <a class="phone-mock__cta-btn" id="whatsappCtaBtn" href="#">WhatsApp'a Gönder</a>
               </div>
             </div>
           </div>
@@ -130,7 +112,7 @@
       <div class="chips reveal" id="chips">
         <button class="chip is-active" data-filter="all">Tümü</button>
         <button class="chip" data-filter="Avize">Avize</button>
-        <button class="chip" data-filter="Anahtar">Anahtar</button>
+        <button class="chip" data-filter="Anahtar">Elektrik Anahtarı</button>
         <button class="chip" data-filter="Ampul">Ampul</button>
       </div>
     </div>
@@ -188,22 +170,108 @@
     <div class="container">
       <div class="section__head reveal">
         <h2>SSS</h2>
-        <p>Sıkça sorulan sorular ve cevapları.</p>
+        <p>Merak edilenleri tek sayfada yanıtladık.</p>
       </div>
 
       <div class="faq reveal">
-        <details>
-          <summary>Hangi odaya hangi avize uygun?</summary>
-          <p>Oda ölçüsü, tavan yüksekliği ve kullanım alanına göre profesyonel öneri sunuyoruz. Fotoğraf ve ölçü bilgilerinizi paylaşmanız yeterlidir.</p>
-        </details>
-        <details>
-          <summary>Ürünlerde garanti var mı?</summary>
-          <p>Marka ve modele göre değişmektedir. Ürün kartlarında belirtilir, ayrıca WhatsApp üzerinden de detaylı bilgi alabilirsiniz.</p>
-        </details>
-        <details>
-          <summary>Online satış var mı?</summary>
-          <p>Fiyat, ölçü ve stok bilgisi için WhatsApp üzerinden bizimle iletişime geçebilirsiniz. Ürünlerimiz hakkında detaylı bilgi ve teklif almak için WhatsApp'tan yazabilirsiniz.</p>
-        </details>
+        <div class="faq__item">
+          <button class="faq__question" aria-expanded="false">
+            <span class="faq__icon">?</span>
+            <span class="faq__text">Hangi odaya hangi avize uygun?</span>
+            <span class="faq__arrow">▼</span>
+          </button>
+          <div class="faq__answer">
+            <p>Odanın m²'si, tavan yüksekliği ve kullanım amacı belirleyici. Ölçü + fotoğraf gönderdiğinizde en uygun modeli öneriyoruz.</p>
+          </div>
+        </div>
+        <div class="faq__item">
+          <button class="faq__question" aria-expanded="false">
+            <span class="faq__icon">?</span>
+            <span class="faq__text">Montaj hizmeti var mı?</span>
+            <span class="faq__arrow">▼</span>
+          </button>
+          <div class="faq__answer">
+            <p>Vakfıkebir ve çevresinde montaj desteği sağlayabiliyoruz. Detay için WhatsApp'tan bilgi alabilirsiniz.</p>
+          </div>
+        </div>
+        <div class="faq__item">
+          <button class="faq__question" aria-expanded="false">
+            <span class="faq__icon">?</span>
+            <span class="faq__text">Ürünlerde garanti var mı?</span>
+            <span class="faq__arrow">▼</span>
+          </button>
+          <div class="faq__answer">
+            <p>Ürün grubuna göre değişir. Garanti bilgisi ve detayları teklif sırasında net olarak paylaşıyoruz.</p>
+          </div>
+        </div>
+        <div class="faq__item">
+          <button class="faq__question" aria-expanded="false">
+            <span class="faq__icon">?</span>
+            <span class="faq__text">Online satış var mı?</span>
+            <span class="faq__arrow">▼</span>
+          </button>
+          <div class="faq__answer">
+            <p>Bu sitede online ödeme yok. Fiyat ve stok bilgisi için WhatsApp üzerinden hızlı teklif veriyoruz.</p>
+          </div>
+        </div>
+        <div class="faq__item">
+          <button class="faq__question" aria-expanded="false">
+            <span class="faq__icon">?</span>
+            <span class="faq__text">Fiyat nasıl belirleniyor?</span>
+            <span class="faq__arrow">▼</span>
+          </button>
+          <div class="faq__answer">
+            <p>Model, ölçü, malzeme ve adet gibi kriterlere göre belirlenir. Fotoğraf/ölçü ile daha net teklif oluşturulur.</p>
+          </div>
+        </div>
+        <div class="faq__item">
+          <button class="faq__question" aria-expanded="false">
+            <span class="faq__icon">?</span>
+            <span class="faq__text">Elektrik anahtarlarında hangi modeller var?</span>
+            <span class="faq__arrow">▼</span>
+          </button>
+          <div class="faq__answer">
+            <p>Modern ve sade tasarımlı anahtar seçeneklerimiz mevcut. Renk/seri tercihinize göre yönlendirme yapıyoruz.</p>
+          </div>
+        </div>
+        <div class="faq__item">
+          <button class="faq__question" aria-expanded="false">
+            <span class="faq__icon">?</span>
+            <span class="faq__text">Ampul seçimi nasıl olmalı?</span>
+            <span class="faq__arrow">▼</span>
+          </button>
+          <div class="faq__answer">
+            <p>Işık rengi (günışığı/beyaz), lümen değeri ve kullanım alanı önemlidir. İhtiyaca göre öneriyoruz.</p>
+          </div>
+        </div>
+        <div class="faq__item">
+          <button class="faq__question" aria-expanded="false">
+            <span class="faq__icon">?</span>
+            <span class="faq__text">Aynı gün dönüş yapıyor musunuz?</span>
+            <span class="faq__arrow">▼</span>
+          </button>
+          <div class="faq__answer">
+            <p>Mesajlara mümkün olan en kısa sürede dönüş sağlıyoruz. Yoğunluk durumunda sıra ile dönüş yapılır.</p>
+          </div>
+        </div>
+        <div class="faq__item">
+          <button class="faq__question" aria-expanded="false">
+            <span class="faq__icon">?</span>
+            <span class="faq__text">Keşif/danışmanlık ücretli mi?</span>
+            <span class="faq__arrow">▼</span>
+          </button>
+          <div class="faq__answer">
+            <p>Vakfıkebir ve çevresinde ücretsiz danışmanlık sunuyoruz. Uygun modeli birlikte seçiyoruz.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-cta reveal">
+        <div class="faq-cta__content">
+          <h3 class="faq-cta__title">Sorunuz mu var?</h3>
+          <p class="faq-cta__desc">Fotoğraf ve ölçü gönderin, en uygun öneriyi hızlıca paylaşalım.</p>
+        </div>
+        <a class="faq-cta__btn btn btn--primary" id="faqCtaWhatsapp" href="#">WhatsApp'tan Sor</a>
       </div>
     </div>
   </section>
@@ -279,16 +347,16 @@
           <h2 class="modal__title" id="modalTitle">Ürün Detayları</h2>
           <div class="modal__body">
             <div class="modal__info">
-              <div class="modal__row">
-                <span class="modal__label">Ölçü:</span>
+              <div class="modal__row" id="modalRowSize">
+                <span class="modal__label" id="modalLabelSize">Ölçü:</span>
                 <span class="modal__value" id="modalSize">-</span>
               </div>
-              <div class="modal__row">
-                <span class="modal__label">Ampul:</span>
+              <div class="modal__row" id="modalRowBulbs">
+                <span class="modal__label" id="modalLabelBulbs">Ampul:</span>
                 <span class="modal__value" id="modalBulbs">-</span>
               </div>
-              <div class="modal__row">
-                <span class="modal__label">Kategori:</span>
+              <div class="modal__row" id="modalRowCategory">
+                <span class="modal__label" id="modalLabelCategory">Kategori:</span>
                 <span class="modal__value" id="modalCategory">-</span>
               </div>
               <div class="modal__row modal__row--price">
