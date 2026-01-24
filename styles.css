@@ -100,14 +100,39 @@
     font-size: clamp(28px, 3.5vw, 42px);
     font-weight: 700;
     line-height: 1.2;
-    margin: 0 0 16px;
+    margin: 0 0 10px;
     color: var(--white);
   }
-  .hero__text-desc{
+  .hero__text-subtitle{
     color: var(--muted);
-    font-size: 16px;
-    line-height: 1.7;
-    margin: 0;
+    font-size: 15px;
+    line-height: 1.6;
+    margin: 0 0 14px;
+  }
+  .hero__steps{
+    list-style: none;
+    padding: 0;
+    margin: 0 0 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .hero__steps-item{
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--muted2);
+  }
+  .hero__trust-note{
+    margin: 4px 0 10px;
+    font-size: 13px;
+    line-height: 1.6;
+    color: var(--muted2);
+  }
+  .hero__trendyol-note{
+    margin: 4px 0 4px;
+    font-size: 13px;
+    line-height: 1.6;
+    color: var(--muted2);
   }
   .hero__visual{
     grid-column: 1 / -1;
@@ -200,6 +225,20 @@
     box-shadow: 0 4px 16px rgba(201,164,97,.25);
   }
   .btn--ghost:hover{ background: rgba(255,255,255,.08); }
+  .btn--trendyol{
+    margin-top: 18px;
+    border-color: rgba(201,164,97,.55);
+    background: rgba(10,11,15,.92);
+    gap: 8px;
+    padding-inline: 18px;
+    box-shadow: 0 4px 14px rgba(0,0,0,.45);
+  }
+  .btn--trendyol:hover{
+    background: rgba(15,16,22,.96);
+    box-shadow: 0 6px 22px rgba(201,164,97,.32);
+    transform: translateY(-1px) scale(1.02);
+    border-color: rgba(201,164,97,.8);
+  }
   
   .hero__trust{ display:grid; gap:10px; margin-top: 10px; }
   .trust{ display:flex; align-items:flex-start; gap:10px; color: var(--muted2); font-size: 13px; }
